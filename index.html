@@ -1,0 +1,3332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="theme-color" content="#1C1811">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="HERMES">
+<meta name="description" content="Plan d'investissement personnel et trading. Patrimoine en commun, parts par bénéficiaire, journal de trading, cours intégrés. Offline.">
+<title>HERMES — Patrimoine & Trading</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231C1811'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23B8920A' font-family='Georgia'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231C1811'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23B8920A' font-family='Georgia'%3EH%3C/text%3E%3C/svg%3E">
+
+<style>
+/* ═════════════════════════════════════════════════════════
+   HERMES V7 — DESIGN SYSTEM
+   ═════════════════════════════════════════════════════════ */
+
+:root {
+  /* Couleurs — palette éditoriale chaude */
+  --gold: #B8920A;
+  --gold-hover: #9A7A08;
+  --gold-light: #E5C25C;
+  --gold-bg: #F9F1D8;
+  --dark: #1C1811;
+  --ink1: #2A2418;
+  --ink2: #3D3828;
+  --ink3: #6B6350;
+  --ink4: #9A917D;
+  --paper: #F8F4E9;
+  --paper2: #F1EBDA;
+  --paper3: #E8DFCA;
+  --border: #D4CABB;
+  --border-soft: #E8E0CC;
+  --white: #FFFFFF;
+  
+  --green: #1E7E4A;
+  --green-bg: #E8F2EC;
+  --red: #C0392B;
+  --red-bg: #FCEEEC;
+  --blue: #1A5C8C;
+  --blue-bg: #E8F0F8;
+  --orange: #C85A1A;
+  --orange-bg: #FCEFE6;
+  --purple: #5C2D8C;
+  --purple-bg: #F0E8F8;
+  --yellow: #FFF4C8;
+  
+  /* Espacements */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px; --sp-12: 48px;
+  
+  /* Rayons */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px; --r-full: 999px;
+  
+  /* Ombres */
+  --sh-sm: 0 1px 2px rgba(28, 24, 17, 0.05);
+  --sh-md: 0 2px 6px rgba(28, 24, 17, 0.08);
+  --sh-lg: 0 8px 24px rgba(28, 24, 17, 0.1);
+  --sh-focus: 0 0 0 3px rgba(184, 146, 10, 0.35);
+  
+  /* Transitions */
+  --t-fast: 0.15s ease;
+  --t-base: 0.22s ease;
+  --t-slow: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Fonts */
+  --f-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --f-sans: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', 'Courier New', monospace;
+  
+  /* Taille de texte ajustable (a11y) */
+  --text-scale: 1;
+  --fs-xs: calc(11px * var(--text-scale));
+  --fs-sm: calc(13px * var(--text-scale));
+  --fs-base: calc(15px * var(--text-scale));
+  --fs-md: calc(17px * var(--text-scale));
+  --fs-lg: calc(20px * var(--text-scale));
+  --fs-xl: calc(24px * var(--text-scale));
+  --fs-2xl: calc(32px * var(--text-scale));
+  --fs-3xl: calc(40px * var(--text-scale));
+}
+
+/* Mode contraste élevé */
+:root[data-contrast="high"] {
+  --paper: #FFFFFF;
+  --paper2: #F5F5F5;
+  --paper3: #EAEAEA;
+  --border: #000000;
+  --border-soft: #333333;
+  --ink3: #000000;
+  --ink4: #333333;
+  --dark: #000000;
+  --gold: #8B6E00;
+  --green: #006B2F;
+  --red: #A00000;
+  --blue: #00467F;
+}
+
+/* Mode sombre — body très sombre, cards plus claires pour contraste */
+:root[data-theme="dark"] {
+  --paper: #2A2620;        /* cards (plus claire que body) */
+  --paper2: #353026;       /* zones secondaires */
+  --paper3: #3F3A2D;       /* hover */
+  --border: #5A5040;       /* bordures visibles */
+  --border-soft: #453F33;
+  --dark: #F4EFE4;
+  --ink1: #E8DFCA;
+  --ink2: #D4CABB;
+  --ink3: #B0A790;
+  --ink4: #8A8270;
+  --white: #2A2620;
+  --gold-bg: #4A3A14;
+  --green-bg: #1F3D29;
+  --red-bg: #3D211C;
+  --blue-bg: #1F3145;
+  --orange-bg: #3D2618;
+  --purple-bg: #2E1F3D;
+  --yellow: #5A4A20;
+  --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-md: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --sh-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+:root[data-theme="dark"] body {
+  background: #1A1814;     /* body plus foncé que les cards */
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*:focus { outline: none; }
+*:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: var(--r-sm); }
+
+html { 
+  scroll-behavior: smooth; 
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--f-serif);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  background: var(--paper);
+  color: var(--dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea { 
+  font-family: inherit; 
+  font-size: inherit;
+  color: inherit;
+}
+button { cursor: pointer; background: none; border: none; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Skip link (a11y) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--dark);
+  color: var(--white);
+  padding: 8px 16px;
+  z-index: 999;
+  border-radius: 0 0 var(--r-md) 0;
+  text-decoration: none;
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+}
+.skip-link:focus { top: 0; }
+
+/* ═══ HEADER ═══ */
+.app-header {
+  background: rgba(248, 244, 233, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: var(--sp-3) var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+:root[data-theme="dark"] .app-header { background: rgba(26, 24, 20, 0.95); }
+
+.logo-w {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  text-decoration: none;
+  color: inherit;
+}
+.logo-i {
+  width: 32px; height: 32px;
+  background: var(--dark);
+  color: var(--gold);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-serif);
+  font-weight: 900;
+  font-size: 20px;
+}
+.logo-t {
+  font-family: var(--f-serif);
+  font-size: var(--fs-lg);
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--dark);
+}
+
+.h-actions { margin-left: auto; display: flex; gap: var(--sp-2); align-items: center; }
+
+.level-pill {
+  display: flex;
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 2px;
+  overflow: hidden;
+}
+.level-pill button {
+  padding: 5px 10px;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink3);
+  font-weight: 700;
+  border-radius: var(--r-full);
+  transition: all var(--t-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.level-pill button.active {
+  background: var(--gold);
+  color: var(--white);
+  box-shadow: var(--sh-sm);
+}
+
+.icon-btn {
+  width: 38px; height: 38px;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  color: var(--ink2);
+  transition: all var(--t-base);
+  font-size: 16px;
+}
+.icon-btn:hover { 
+  background: var(--gold-bg); 
+  border-color: var(--gold); 
+  transform: translateY(-1px);
+}
+
+/* ═══ NAV TABS ═══ */
+.nav-tabs {
+  background: var(--paper2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0;
+  position: sticky;
+  top: 56px;
+  z-index: 99;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink3);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: all var(--t-fast);
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-tab:hover { color: var(--dark); }
+.nav-tab[aria-selected="true"] {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ═══ MAIN ═══ */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-5) var(--sp-12);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(4px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* ═══ TYPOGRAPHIE ═══ */
+h1 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-2xl);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: var(--sp-2);
+}
+h2 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  margin: var(--sp-8) 0 var(--sp-3);
+  line-height: 1.25;
+}
+h3 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--gold);
+  margin: var(--sp-5) 0 var(--sp-2);
+}
+h4 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+p { margin-bottom: var(--sp-3); }
+ul, ol { margin: var(--sp-2) 0 var(--sp-4) var(--sp-6); }
+li { margin-bottom: var(--sp-2); }
+strong { font-weight: 700; }
+
+.page-title {
+  margin-bottom: var(--sp-2);
+}
+.page-sub {
+  color: var(--ink3);
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  margin-bottom: var(--sp-6);
+}
+
+/* ═══ CARDS ═══ */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  box-shadow: var(--sh-sm);
+  transition: box-shadow var(--t-base);
+}
+.card:hover { box-shadow: var(--sh-md); }
+.card-title {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* ═══ KPI CARDS ═══ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+.kpi {
+  color: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+  transition: transform var(--t-base);
+}
+.kpi:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.kpi.gold { background: linear-gradient(135deg, var(--gold) 0%, #9C7C08 100%); }
+.kpi.green { background: linear-gradient(135deg, var(--green) 0%, #155F36 100%); }
+.kpi.blue { background: linear-gradient(135deg, var(--blue) 0%, #144A6F 100%); }
+.kpi.red { background: linear-gradient(135deg, var(--red) 0%, #9A2D22 100%); }
+.kpi.orange { background: linear-gradient(135deg, var(--orange) 0%, #A14613 100%); }
+.kpi.dark { background: linear-gradient(135deg, var(--ink2) 0%, var(--dark) 100%); }
+
+.kpi-icon { font-size: 18px; margin-bottom: var(--sp-2); opacity: 0.9; }
+.kpi-label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  margin-bottom: var(--sp-1);
+  text-transform: uppercase;
+}
+.kpi-value {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.kpi-sub {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  opacity: 0.8;
+  margin-top: var(--sp-1);
+}
+
+/* ═══ FORMS ═══ */
+.label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  display: block;
+}
+.input, .select {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  font-size: var(--fs-sm);
+  font-family: var(--f-mono);
+  color: var(--dark);
+  outline: none;
+  width: 100%;
+  min-height: 42px;
+  transition: all var(--t-fast);
+}
+:root[data-theme="dark"] .input, :root[data-theme="dark"] .select { background: var(--paper2); }
+.input:hover, .select:hover { border-color: var(--ink4); }
+.input:focus, .select:focus { 
+  border-color: var(--gold); 
+  box-shadow: var(--sh-focus); 
+}
+.input.highlight {
+  background: var(--yellow);
+  border: 2px solid var(--gold);
+  font-weight: 700;
+}
+textarea.input { min-height: 80px; resize: vertical; line-height: 1.5; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-3);
+}
+
+/* ═══ BUTTONS ═══ */
+.btn {
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: var(--r-md);
+  padding: 10px 18px;
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all var(--t-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: var(--sh-sm);
+  min-height: 42px;
+  text-decoration: none;
+}
+.btn:hover { 
+  background: var(--gold-hover); 
+  transform: translateY(-1px); 
+  box-shadow: var(--sh-md); 
+  text-decoration: none;
+}
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn.green { background: var(--green); }
+.btn.green:hover { background: #166B3F; }
+.btn.red { background: var(--red); }
+.btn.red:hover { background: #A02D22; }
+.btn.blue { background: var(--blue); }
+.btn.blue:hover { background: #144A6F; }
+.btn.ghost {
+  background: transparent;
+  color: var(--ink2);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.btn.ghost:hover { background: var(--paper2); border-color: var(--dark); color: var(--dark); }
+.btn.sm { padding: 6px 12px; font-size: var(--fs-xs); min-height: 32px; }
+.btn.full { width: 100%; }
+
+/* ═══ BADGES ═══ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.badge.safe { background: var(--green-bg); color: var(--green); }
+.badge.mod { background: #FFF4D6; color: #A87800; }
+.badge.risq { background: var(--orange-bg); color: var(--orange); }
+.badge.jack { background: var(--red-bg); color: var(--red); }
+.badge.info { background: var(--blue-bg); color: var(--blue); }
+
+.risk-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: var(--r-full);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: var(--white);
+  box-shadow: var(--sh-sm);
+}
+
+/* ═══ NOTICES ═══ */
+.notice {
+  border-left: 3px solid var(--blue);
+  background: var(--blue-bg);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--sp-3) var(--sp-4);
+  margin: var(--sp-3) 0;
+  font-size: var(--fs-sm);
+  color: var(--blue);
+  font-style: italic;
+  line-height: 1.5;
+}
+.notice.green { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.notice.gold { background: var(--gold-bg); border-color: var(--gold); color: var(--gold); }
+.notice.red { background: var(--red-bg); border-color: var(--red); color: var(--red); font-style: normal; font-weight: 600; }
+.notice.orange { background: var(--orange-bg); border-color: var(--orange); color: var(--orange); }
+.notice.purple { background: var(--purple-bg); border-color: var(--purple); color: var(--purple); }
+
+/* ═══ TABLES ═══ */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+.table thead {
+  background: var(--dark);
+  color: var(--white);
+}
+.table thead th {
+  padding: var(--sp-3) var(--sp-2);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+.table tbody tr {
+  border-bottom: 1px solid var(--border-soft);
+  transition: background var(--t-fast);
+}
+.table tbody tr:hover { background: var(--paper2); }
+.table tbody td {
+  padding: var(--sp-2);
+  vertical-align: middle;
+}
+.table tbody td.num { font-family: var(--f-mono); text-align: right; }
+
+/* ═══ SUGGESTION CARD ═══ */
+.suggestion {
+  background: linear-gradient(135deg, var(--gold-bg) 0%, var(--paper2) 100%);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-3);
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  box-shadow: var(--sh-sm);
+  transition: all var(--t-base);
+}
+.suggestion:hover { box-shadow: var(--sh-md); transform: translateY(-1px); }
+.sug-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--gold);
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+.sug-body { flex: 1; min-width: 0; }
+.sug-title { 
+  font-family: var(--f-serif); 
+  font-size: var(--fs-base); 
+  font-weight: 700; 
+  color: var(--dark); 
+  margin-bottom: var(--sp-1); 
+}
+.sug-desc { 
+  font-size: var(--fs-sm); 
+  color: var(--ink2); 
+  line-height: 1.5; 
+  margin-bottom: var(--sp-2); 
+}
+
+/* ═══ COHERENCE PILL ═══ */
+.coherence {
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-3);
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.coherence.ok { background: var(--green-bg); color: var(--green); border-color: var(--green); }
+.coherence.warn { background: var(--red-bg); color: var(--red); border-color: var(--red); }
+
+/* ═══ PROGRESS BAR ═══ */
+.bar {
+  height: 8px;
+  background: var(--paper3);
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  transition: width var(--t-slow);
+}
+
+/* ═══ MODAL ═══ */
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(28, 24, 17, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--sp-4);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+.modal-bg.show { display: flex; }
+.modal {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--sh-lg);
+}
+.modal h2 { margin: 0 0 var(--sp-3); }
+.modal-actions { 
+  display: flex; 
+  gap: var(--sp-2); 
+  justify-content: flex-end; 
+  margin-top: var(--sp-4); 
+  flex-wrap: wrap; 
+}
+
+/* ═══ EMPTY ═══ */
+.empty {
+  text-align: center;
+  padding: var(--sp-10) var(--sp-4);
+  color: var(--ink3);
+}
+.empty-icon { font-size: 48px; margin-bottom: var(--sp-2); opacity: 0.4; }
+
+/* ═══ INFO TOOLTIP / DEFINITION ═══ */
+.term-def {
+  background: var(--paper2);
+  border-left: 2px solid var(--blue);
+  padding: 6px 10px;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: var(--fs-xs);
+  color: var(--ink2);
+  margin: 4px 0;
+  font-style: italic;
+}
+
+/* Mode débutant : afficher les définitions */
+[data-level="debutant"] .level-only-int,
+[data-level="debutant"] .level-only-exp { display: none; }
+[data-level="intermediaire"] .level-only-exp,
+[data-level="intermediaire"] .level-only-deb { display: none; }
+[data-level="expert"] .level-only-deb,
+[data-level="expert"] .level-only-int { display: none; }
+[data-level="intermediaire"] .term-def,
+[data-level="expert"] .term-def { display: none; }
+
+/* ═══ QUICK ACTIONS ═══ */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+.quick-action {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  cursor: pointer;
+  transition: all var(--t-base);
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--sh-sm);
+}
+.quick-action:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-md);
+  text-decoration: none;
+}
+.qa-icon { font-size: 28px; margin-bottom: var(--sp-1); }
+.qa-title { 
+  font-family: var(--f-serif); 
+  font-weight: 700; 
+  font-size: var(--fs-base); 
+  color: var(--dark); 
+}
+.qa-desc { 
+  font-size: var(--fs-xs); 
+  color: var(--ink3); 
+  font-family: var(--f-mono); 
+}
+
+/* ═══ TRADE CARD ═══ */
+.trade-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-3);
+  box-shadow: var(--sh-sm);
+  transition: all var(--t-base);
+}
+.trade-card:hover { box-shadow: var(--sh-md); }
+.trade-card-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+.trade-tag {
+  background: var(--gold);
+  color: var(--white);
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+/* ═══ COURS — STRUCTURE LIVRE ═══ */
+.course-toc {
+  background: linear-gradient(135deg, var(--paper2) 0%, var(--paper) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-6);
+}
+.course-toc h3 { margin-top: 0; }
+.toc-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-2);
+}
+.toc-link {
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  color: var(--ink2);
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  border: 1px solid var(--border-soft);
+  transition: all var(--t-fast);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.toc-link:hover {
+  background: var(--gold-bg);
+  border-color: var(--gold);
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.lesson-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  scroll-margin-top: 120px;
+}
+.lesson-meta {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.lesson-title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  margin: var(--sp-1) 0 var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.level-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.level-tag.deb { background: var(--green-bg); color: var(--green); }
+.level-tag.int { background: var(--orange-bg); color: var(--orange); }
+.level-tag.exp { background: var(--red-bg); color: var(--red); }
+
+/* ═══ SIMULATEUR ═══ */
+.simulator {
+  background: var(--paper);
+  border: 2px solid var(--gold);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  margin: var(--sp-4) 0;
+}
+.sim-result {
+  background: var(--gold-bg);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  margin-top: var(--sp-4);
+  text-align: center;
+}
+.sim-result-value {
+  font-family: var(--f-mono);
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1.1;
+}
+.sim-result-label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ═══ RESPONSIVE — MOBILE FIRST ═══ */
+@media (max-width: 768px) {
+  .main { padding: var(--sp-4) var(--sp-3) var(--sp-12); }
+  .app-header { padding: var(--sp-3); gap: var(--sp-2); }
+  .logo-t { font-size: var(--fs-base); letter-spacing: 1.5px; }
+  
+  h1 { font-size: var(--fs-xl); }
+  h2 { font-size: var(--fs-lg); margin-top: var(--sp-6); }
+  h3 { font-size: var(--fs-md); }
+  
+  .level-pill { padding: 1px; }
+  .level-pill button { padding: 4px 8px; font-size: 10px; }
+  
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-2); }
+  .kpi { padding: var(--sp-3); }
+  .kpi-value { font-size: var(--fs-md); }
+  
+  .nav-tab { padding: var(--sp-3) 10px; font-size: 10px; }
+  
+  .form-grid { grid-template-columns: 1fr; }
+  .input, .select { font-size: var(--fs-base); min-height: 44px; padding: 11px 13px; }
+  textarea.input { min-height: 80px; }
+  
+  .quick-actions { grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+  .quick-action { padding: var(--sp-3); }
+  
+  .coherence { flex-direction: column; align-items: flex-start; }
+  
+  /* Tables → cards */
+  .table.responsive { display: block; }
+  .table.responsive thead { display: none; }
+  .table.responsive tbody { display: block; }
+  .table.responsive tbody tr {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-3);
+    margin-bottom: var(--sp-3);
+    box-shadow: var(--sh-sm);
+  }
+  .table.responsive tbody tr:hover { background: var(--paper); }
+  .table.responsive tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border-soft);
+    gap: var(--sp-3);
+    text-align: right;
+  }
+  .table.responsive tbody td:last-child { border-bottom: none; }
+  .table.responsive tbody td::before {
+    content: attr(data-label);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ink3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    min-width: 92px;
+    text-align: left;
+  }
+  .table.responsive tbody td input,
+  .table.responsive tbody td select {
+    width: auto !important;
+    max-width: 60% !important;
+    min-width: 0 !important;
+    flex: 1;
+  }
+  .table.responsive tbody td:has(button):not(:has(input)) { justify-content: flex-end; }
+  .table.responsive tbody td:has(button):not(:has(input))::before { display: none; }
+  
+  .suggestion { padding: var(--sp-3); }
+  .sug-icon { width: 38px; height: 38px; font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .quick-actions { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { 
+    animation-duration: 0.01ms !important; 
+    transition-duration: 0.01ms !important; 
+  }
+}
+
+@media print {
+  .app-header, .nav-tabs, .btn, .icon-btn, .quick-actions { display: none !important; }
+  .main { max-width: 100%; padding: 0; }
+  .card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Aller au contenu principal</a>
+
+<header class="app-header" role="banner">
+  <a href="#" class="logo-w" onclick="goTab('accueil');return false;" aria-label="HERMES — Accueil">
+    <div class="logo-i" aria-hidden="true">H</div>
+    <div class="logo-t">HERMES</div>
+  </a>
+  
+  <div class="h-actions">
+    <div class="level-pill" role="radiogroup" aria-label="Niveau d'expertise">
+      <button id="lvl-deb" onclick="setLevel('debutant')" role="radio" aria-checked="true">Débutant</button>
+      <button id="lvl-int" onclick="setLevel('intermediaire')" role="radio">Inter.</button>
+      <button id="lvl-exp" onclick="setLevel('expert')" role="radio">Expert</button>
+    </div>
+    <button class="icon-btn" onclick="goTab('reglages')" aria-label="Réglages">⚙️</button>
+  </div>
+</header>
+
+<nav class="nav-tabs" id="nav-tabs" role="tablist" aria-label="Navigation principale"></nav>
+
+<main class="main" id="main" role="main"></main>
+
+<div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <h2 id="modal-title">Titre</h2>
+    <div id="modal-body"></div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+// ═════════════════════════════════════════════════════════
+// HERMES V7 — STATE & CORE
+// ═════════════════════════════════════════════════════════
+
+const STORAGE_KEYS = {
+  apports: 'h7_apports', benefs: 'h7_benefs', produits: 'h7_produits',
+  achats: 'h7_achats', trades: 'h7_trades', profil: 'h7_profil',
+  monthly: 'h7_monthly', resources: 'h7_resources',
+  level: 'h7_level', textScale: 'h7_text_scale',
+  contrast: 'h7_contrast', theme: 'h7_theme',
+  currentTab: 'h7_tab', courseProgress: 'h7_course_progress',
+};
+
+function load(key, fallback) {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS[key]);
+    return raw !== null ? JSON.parse(raw) : fallback;
+  } catch (e) { return fallback; }
+}
+function save(key, value) {
+  try { localStorage.setItem(STORAGE_KEYS[key], JSON.stringify(value)); }
+  catch (e) { console.error('Save failed', e); }
+}
+
+// Catalogue produits par défaut
+const DEFAULT_PRODUCTS = [
+  { n: 'Livret A', cat: 'Cash', risq: 1, prof: 'Safe', rdt: 3 },
+  { n: 'LDDS', cat: 'Cash', risq: 1, prof: 'Safe', rdt: 3 },
+  { n: 'LEP', cat: 'Cash', risq: 1, prof: 'Safe', rdt: 5 },
+  { n: 'Fonds €', cat: 'Obligation', risq: 2, prof: 'Safe', rdt: 2.5 },
+  { n: "Obligations d'État (OAT)", cat: 'Obligation', risq: 2, prof: 'Safe', rdt: 3.5 },
+  { n: 'Obligations corporate IG', cat: 'Obligation', risq: 3, prof: 'Safe', rdt: 4.5 },
+  { n: 'ETF MSCI World (CW8/EWLD)', cat: 'Actions', risq: 3, prof: 'Safe', rdt: 8 },
+  { n: 'ETF S&P 500', cat: 'Actions', risq: 4, prof: 'Modéré', rdt: 9 },
+  { n: 'ETF Émergents', cat: 'Actions', risq: 6, prof: 'Risqué', rdt: 8.5 },
+  { n: 'ETF Tech (NDXT)', cat: 'Actions', risq: 6, prof: 'Risqué', rdt: 11 },
+  { n: 'Actions blue chips', cat: 'Actions', risq: 4, prof: 'Modéré', rdt: 7.5 },
+  { n: 'Actions value', cat: 'Actions', risq: 5, prof: 'Modéré', rdt: 8 },
+  { n: 'Actions growth', cat: 'Actions', risq: 7, prof: 'Risqué', rdt: 12 },
+  { n: 'Actions small caps', cat: 'Actions', risq: 8, prof: 'Risqué', rdt: 10 },
+  { n: 'SCPI', cat: 'Immobilier', risq: 3, prof: 'Safe', rdt: 5 },
+  { n: 'Immobilier locatif', cat: 'Immobilier', risq: 4, prof: 'Modéré', rdt: 6 },
+  { n: 'BTC (Bitcoin)', cat: 'Crypto', risq: 7, prof: 'Risqué', rdt: 25 },
+  { n: 'ETH (Ethereum)', cat: 'Crypto', risq: 7, prof: 'Risqué', rdt: 25 },
+  { n: 'Stablecoins (USDC)', cat: 'Crypto', risq: 3, prof: 'Safe', rdt: 5 },
+  { n: 'Crypto alt-coins', cat: 'Crypto', risq: 9, prof: 'Jackpot', rdt: 60 },
+  { n: 'Or physique', cat: 'Commodité', risq: 3, prof: 'Safe', rdt: 4 },
+  { n: 'Trading actif', cat: 'Trading', risq: 7, prof: 'Risqué', rdt: 15 },
+  { n: 'Options & futures', cat: 'Trading', risq: 9, prof: 'Jackpot', rdt: 40 },
+];
+
+const DEFAULT_RESOURCES = [
+  { name: 'Mon dossier Drive HERMES', url: '', category: 'Documents' },
+  { name: 'Annexe : Lexique', url: '', category: 'Cours' },
+  { name: 'Annexe : Checklists', url: '', category: 'Cours' },
+  { name: 'Annexe : Patterns', url: '', category: 'Cours' },
+  { name: 'Annexe : Fiscalité', url: '', category: 'Fiscalité' },
+  { name: 'Mon broker principal', url: '', category: 'Brokers' },
+];
+
+// État global
+const state = {
+  apports: load('apports', [
+    { date: '2026-01-31', source: 'Salaire Janvier', montant: 3500 },
+    { date: '2026-02-28', source: 'Salaire Février', montant: 3500 },
+    { date: '2026-03-15', source: 'Bonus Q1', montant: 2000 },
+    { date: '2026-03-31', source: 'Salaire Mars', montant: 3500 },
+  ]),
+  benefs: load('benefs', [
+    { n: 'Moi', rel: 'Soi-même', part: 60 },
+    { n: 'Ma mère', rel: 'Famille', part: 20 },
+    { n: 'Mon père', rel: 'Famille', part: 5 },
+    { n: 'Mon enfant', rel: 'Famille', part: 15 },
+  ]),
+  produits: load('produits', DEFAULT_PRODUCTS),
+  achats: load('achats', [
+    { date: '2026-01-31', produit: 'ETF MSCI World (CW8/EWLD)', qte: 10, pa: 100, cours: 105 },
+    { date: '2026-01-31', produit: 'Livret A', qte: 1, pa: 2000, cours: 2010 },
+    { date: '2026-02-28', produit: 'ETF MSCI World (CW8/EWLD)', qte: 5, pa: 103, cours: 105 },
+    { date: '2026-03-15', produit: 'Obligations corporate IG', qte: 1, pa: 1000, cours: 1015 },
+  ]),
+  trades: load('trades', []),
+  profil: load('profil', [
+    { c: 'Safe', n: '1-3', part: 50 },
+    { c: 'Modéré', n: '4-5', part: 30 },
+    { c: 'Risqué', n: '6-8', part: 15 },
+    { c: 'Jackpot', n: '9-10', part: 5 },
+  ]),
+  monthly: load('monthly', 500),
+  resources: load('resources', DEFAULT_RESOURCES),
+  level: load('level', 'debutant'),
+  textScale: load('textScale', 1),
+  contrast: load('contrast', 'normal'),
+  theme: load('theme', 'light'),
+  currentTab: load('currentTab', 'accueil'),
+  courseProgress: load('courseProgress', []),
+};
+
+// Couleurs niveau de risque
+const RISK_COLORS = {
+  1: '#0D6E3F', 2: '#30924F', 3: '#5BB05D', 4: '#8FC967', 5: '#CFD66B',
+  6: '#E5C25C', 7: '#E59E4A', 8: '#DC7B3F', 9: '#C75332', 10: '#9B2A2A'
+};
+const PROF_CLASSES = { Safe: 'safe', 'Modéré': 'mod', 'Risqué': 'risq', Jackpot: 'jack' };
+const PROF_ICONS = { Safe: '🟢', 'Modéré': '🟡', 'Risqué': '🟠', Jackpot: '🔴' };
+const CAT_ICONS = { 
+  Cash: '💵', Obligation: '📜', Actions: '📈', Immobilier: '🏠', 
+  Crypto: '₿', Trading: '🎯', Commodité: '🪙', Autre: '📦' 
+};
+
+// ═════════════════════════════════════════════════════════
+// HELPERS / CALCULS
+// ═════════════════════════════════════════════════════════
+
+const fmt = n => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(Math.round(n || 0));
+const fmtE = n => fmt(n) + ' €';
+const fmtSign = n => (n >= 0 ? '+' : '') + fmtE(n);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const escAttr = s => String(s ?? '').replace(/"/g, '&quot;');
+
+const sumApports = () => state.apports.reduce((a, b) => a + (parseFloat(b.montant) || 0), 0);
+const totalBenefs = () => state.benefs.reduce((a, b) => a + (parseFloat(b.part) || 0), 0);
+const totalProfilCible = () => state.profil.reduce((a, b) => a + (parseFloat(b.part) || 0), 0);
+const totalPA = () => state.achats.reduce((a, b) => a + ((parseFloat(b.qte) || 0) * (parseFloat(b.pa) || 0)), 0);
+const totalVal = () => state.achats.reduce((a, b) => a + ((parseFloat(b.qte) || 0) * (parseFloat(b.cours) || parseFloat(b.pa) || 0)), 0);
+const getProduct = n => state.produits.find(p => p.n === n);
+
+const valBenef = nom => {
+  const b = state.benefs.find(x => x.n === nom);
+  return b ? totalVal() * (b.part || 0) / 100 : 0;
+};
+const paBenef = nom => {
+  const b = state.benefs.find(x => x.n === nom);
+  return b ? totalPA() * (b.part || 0) / 100 : 0;
+};
+const cashBenef = nom => {
+  const b = state.benefs.find(x => x.n === nom);
+  const cash = sumApports() - totalPA();
+  return b ? cash * (b.part || 0) / 100 : 0;
+};
+
+const profilReels = () => {
+  const r = { Safe: 0, 'Modéré': 0, 'Risqué': 0, Jackpot: 0 };
+  state.achats.forEach(a => {
+    const p = getProduct(a.produit);
+    if (!p) return;
+    const v = (parseFloat(a.qte) || 0) * (parseFloat(a.cours) || parseFloat(a.pa) || 0);
+    if (r.hasOwnProperty(p.prof)) r[p.prof] += v;
+  });
+  return r;
+};
+
+// FV = P*(1+r)^n + PMT*((1+r)^n - 1)/r  — projection avec DCA
+const projectionFV = (years, rateAnnual = 0.05) => {
+  const P = totalVal() || sumApports();
+  const PMT = parseFloat(state.monthly) || 0;
+  const rMonth = Math.pow(1 + rateAnnual, 1/12) - 1;
+  const n = years * 12;
+  const capitalFinal = P * Math.pow(1 + rMonth, n) + PMT * ((Math.pow(1 + rMonth, n) - 1) / rMonth);
+  return {
+    capital: capitalFinal,
+    renteMensuelle: capitalFinal * 0.04 / 12,
+  };
+};
+
+// ═════════════════════════════════════════════════════════
+// CRUD
+// ═════════════════════════════════════════════════════════
+
+function update(key, idx, field, value) {
+  if (!state[key] || !state[key][idx]) return;
+  state[key][idx][field] = value;
+  save(key, state[key]);
+  rerender();
+}
+function remove(key, idx) {
+  if (!confirm('Supprimer cette ligne ?')) return;
+  state[key].splice(idx, 1);
+  save(key, state[key]);
+  rerender();
+}
+function add(key, defaultItem) {
+  state[key].push(defaultItem);
+  save(key, state[key]);
+  rerender();
+}
+function rebalanceTo100(key) {
+  const items = state[key];
+  if (!items.length) return;
+  const total = items.reduce((a, b) => a + (parseFloat(b.part) || 0), 0);
+  if (Math.abs(total - 100) < 0.01) return;
+  items[0].part = parseFloat(items[0].part || 0) + (100 - total);
+  save(key, items);
+  rerender();
+}
+function equalSplit(key) {
+  const items = state[key];
+  if (!items.length) return;
+  const each = parseFloat((100 / items.length).toFixed(2));
+  items.forEach(i => i.part = each);
+  const t = items.reduce((a, b) => a + (parseFloat(b.part) || 0), 0);
+  if (Math.abs(t - 100) > 0.01) items[0].part = parseFloat(items[0].part) + (100 - t);
+  save(key, items);
+  rerender();
+}
+
+// ═════════════════════════════════════════════════════════
+// NIVEAU UX (adaptive)
+// ═════════════════════════════════════════════════════════
+
+function setLevel(level) {
+  state.level = level;
+  save('level', level);
+  document.documentElement.setAttribute('data-level', level);
+  ['deb', 'int', 'exp'].forEach(l => {
+    const fullName = l === 'deb' ? 'debutant' : l === 'int' ? 'intermediaire' : 'expert';
+    const btn = document.getElementById('lvl-' + l);
+    if (btn) {
+      const active = fullName === level;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-checked', active);
+    }
+  });
+}
+
+// ═════════════════════════════════════════════════════════
+// ACCESSIBILITÉ
+// ═════════════════════════════════════════════════════════
+
+function setTextScale(scale) {
+  state.textScale = scale;
+  save('textScale', scale);
+  document.documentElement.style.setProperty('--text-scale', scale);
+}
+function setContrast(c) {
+  state.contrast = c;
+  save('contrast', c);
+  document.documentElement.setAttribute('data-contrast', c);
+}
+function setTheme(t) {
+  state.theme = t;
+  save('theme', t);
+  document.documentElement.setAttribute('data-theme', t);
+}
+
+// ═════════════════════════════════════════════════════════
+// NAVIGATION
+// ═════════════════════════════════════════════════════════
+
+const TABS = [
+  { id: 'accueil', label: '🏠 Accueil' },
+  { id: 'portefeuille', label: '💼 Portefeuille' },
+  { id: 'trading', label: '🎯 Trading' },
+  { id: 'apprendre', label: '📚 Apprendre' },
+  { id: 'reglages', label: '⚙️ Réglages' },
+];
+
+function goTab(id, anchor) {
+  state.currentTab = id;
+  save('currentTab', id);
+  
+  // Mapping anchor → sous-section pour Apprendre
+  if (id === 'apprendre' && anchor) {
+    const APPRENDRE_SECTIONS = ['intro', 'actifs', 'warren', 'piliers', 'patterns', 'simulateurs', 'glossaire', 'fiscalite'];
+    const SECTION_ALIASES = {
+      'rente': 'intro',
+      'etude-marche': 'actifs',
+      'etf': 'actifs', 'actions': 'actifs', 'obligations': 'actifs',
+      'immo': 'actifs', 'crypto': 'actifs', 'commos': 'actifs',
+      'forex': 'actifs', 'derives': 'actifs', 'cash': 'actifs',
+      'w-bilan': 'warren', 'w-resultat': 'warren', 'w-cashflow': 'warren',
+      'w-ratios': 'warren', 'w-moat': 'warren', 'w-valuation': 'warren', 'w-checklist': 'warren',
+      'risque': 'piliers',
+      'glossaire': 'glossaire',
+      'fiscalite': 'fiscalite', 'impots': 'fiscalite',
+    };
+    let targetSection = null;
+    let targetAnchor = null;
+    if (APPRENDRE_SECTIONS.includes(anchor)) {
+      targetSection = anchor;
+    } else if (SECTION_ALIASES[anchor]) {
+      targetSection = SECTION_ALIASES[anchor];
+      targetAnchor = anchor;
+    }
+    if (targetSection) {
+      currentLearn = targetSection;
+    }
+    render();
+    if (targetAnchor) {
+      setTimeout(() => {
+        const el = document.getElementById(targetAnchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 250);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    return;
+  }
+  
+  render();
+  if (anchor) {
+    setTimeout(() => {
+      const el = document.getElementById(anchor);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function renderNavTabs() {
+  document.getElementById('nav-tabs').innerHTML = TABS.map(t =>
+    `<button class="nav-tab" onclick="goTab('${t.id}')" role="tab" aria-selected="${state.currentTab === t.id}" aria-controls="main">${t.label}</button>`
+  ).join('');
+}
+
+// ═════════════════════════════════════════════════════════
+// MODAL
+// ═════════════════════════════════════════════════════════
+
+function showModal(title, bodyHTML, actions) {
+  document.getElementById('modal-title').innerHTML = title;
+  document.getElementById('modal-body').innerHTML = bodyHTML;
+  document.getElementById('modal-actions').innerHTML = actions || '';
+  document.getElementById('modal-bg').classList.add('show');
+}
+function hideModal() {
+  document.getElementById('modal-bg').classList.remove('show');
+}
+// Close modal on Esc
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') hideModal();
+});
+// Close on backdrop click
+document.addEventListener('click', e => {
+  if (e.target.id === 'modal-bg') hideModal();
+});
+
+// ═════════════════════════════════════════════════════════
+// PWA — Service Worker + Install prompt
+// ═════════════════════════════════════════════════════════
+
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+async function installPWA() {
+  if (!deferredInstallPrompt) {
+    alert('Pour installer HERMES :\n\n• iPhone/iPad : Partager → "Sur l\'écran d\'accueil"\n• Android : Menu ⋮ → "Installer l\'application"\n• Desktop : icône ⊕ dans la barre d\'adresse');
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  if (outcome === 'accepted') deferredInstallPrompt = null;
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+</script>
+<script>
+// ═════════════════════════════════════════════════════════
+// ACCUEIL
+// ═════════════════════════════════════════════════════════
+
+function getSuggestions() {
+  const sugg = [];
+  const totApp = sumApports();
+  const totPA = totalPA();
+  const cash = totApp - totPA;
+  const cashRatio = totApp > 0 ? cash / totApp : 0;
+  
+  if (cashRatio > 0.3 && cash > 1000) {
+    sugg.push({
+      icon: '💰',
+      title: 'Trop de cash inactif',
+      desc: `${fmtE(cash)} (${(cashRatio*100).toFixed(0)}%) dort sur ton compte. L'inflation grignote ton pouvoir d'achat.`,
+      btn: 'Investir →', tab: 'portefeuille', anchor: 'achats'
+    });
+  }
+  
+  const totBen = totalBenefs();
+  if (Math.abs(totBen - 100) > 0.01 && state.benefs.length > 0) {
+    sugg.push({
+      icon: '👥',
+      title: 'Parts à équilibrer',
+      desc: `Total ${totBen.toFixed(1)}% au lieu de 100%. Un clic pour rééquilibrer.`,
+      btn: 'Rééquilibrer', onclick: "rebalanceTo100('benefs')"
+    });
+  }
+  
+  const profRes = profilReels();
+  const totReel = Object.values(profRes).reduce((a,b)=>a+b, 0);
+  if (totReel > 0) {
+    let maxEcart = 0, dev = null;
+    state.profil.forEach(p => {
+      const reel = (profRes[p.c] / totReel * 100);
+      const ec = Math.abs(reel - (p.part || 0));
+      if (ec > maxEcart) { maxEcart = ec; dev = { ...p, reel, ec: reel - p.part }; }
+    });
+    if (maxEcart > 10) {
+      sugg.push({
+        icon: '⚖️',
+        title: `Profil "${dev.c}" déséquilibré`,
+        desc: `Réel ${dev.reel.toFixed(0)}% vs cible ${dev.part}%. ${dev.ec > 0 ? 'Sur-exposition' : 'Sous-exposition'} de ${Math.abs(dev.ec).toFixed(0)}%.`,
+        btn: 'Voir profil →', tab: 'portefeuille', anchor: 'profil'
+      });
+    }
+  }
+  
+  if (state.trades.length === 0 && cash > 5000) {
+    sugg.push({
+      icon: '🎯',
+      title: 'Prêt à structurer tes trades ?',
+      desc: `Le journal HERMES t'aide à respecter R/R et psychologie. Max 1-2% du capital par trade.`,
+      btn: 'Démarrer →', tab: 'trading'
+    });
+  }
+  
+  if (!state.monthly || state.monthly === 0) {
+    sugg.push({
+      icon: '📅',
+      title: 'Définis ton DCA mensuel',
+      desc: `Le DCA (Dollar Cost Averaging) lisse les points d'entrée et fait travailler les intérêts composés.`,
+      btn: 'Configurer →', tab: 'portefeuille', anchor: 'monthly'
+    });
+  }
+  
+  return sugg;
+}
+
+function renderAccueil() {
+  const totApp = sumApports();
+  const totPA = totalPA();
+  const totVal = totalVal();
+  const pnl = totVal - totPA;
+  const cash = totApp - totPA;
+  const pnlPct = totPA > 0 ? (pnl/totPA)*100 : 0;
+  const suggestions = getSuggestions();
+  const projection = projectionFV(20);
+  
+  return `
+    <h1 class="page-title">Tableau de bord</h1>
+    <p class="page-sub">Vue d'ensemble · investissement en commun, répartition par quote-parts</p>
+    
+    <div class="kpi-grid">
+      <div class="kpi gold" role="region" aria-label="Total apporté">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-label">Apporté</div>
+        <div class="kpi-value">${fmtE(totApp)}</div>
+        <div class="kpi-sub">${state.apports.length} entrées</div>
+      </div>
+      <div class="kpi blue" role="region" aria-label="Capital investi">
+        <div class="kpi-icon">📊</div>
+        <div class="kpi-label">Investi</div>
+        <div class="kpi-value">${fmtE(totPA)}</div>
+        <div class="kpi-sub">${state.achats.length} positions</div>
+      </div>
+      <div class="kpi ${pnl >= 0 ? 'green' : 'red'}" role="region" aria-label="Plus ou moins-values latentes">
+        <div class="kpi-icon">${pnl >= 0 ? '📈' : '📉'}</div>
+        <div class="kpi-label">P&L latent</div>
+        <div class="kpi-value">${fmtSign(pnl)}</div>
+        <div class="kpi-sub">${pnlPct.toFixed(1)}%</div>
+      </div>
+      <div class="kpi dark" role="region" aria-label="Cash disponible">
+        <div class="kpi-icon">💵</div>
+        <div class="kpi-label">Cash</div>
+        <div class="kpi-value">${fmtE(cash)}</div>
+        <div class="kpi-sub">${totApp > 0 ? ((cash/totApp)*100).toFixed(0) : 0}% du total</div>
+      </div>
+    </div>
+    
+    ${suggestions.length > 0 ? `
+      <h2>💡 Actions recommandées</h2>
+      ${suggestions.map(s => `
+        <div class="suggestion">
+          <div class="sug-icon" aria-hidden="true">${s.icon}</div>
+          <div class="sug-body">
+            <div class="sug-title">${esc(s.title)}</div>
+            <div class="sug-desc">${esc(s.desc)}</div>
+            <button class="btn sm" onclick="${s.onclick ? s.onclick + '; ' : ''}${s.tab ? `goTab('${s.tab}'${s.anchor ? `, '${s.anchor}'` : ''})` : ''}">${esc(s.btn)}</button>
+          </div>
+        </div>
+      `).join('')}
+    ` : `
+      <h2>✨ Tout est aligné</h2>
+      <div class="notice green">Bravo, ton portefeuille est équilibré. Continue le DCA et reste discipliné.</div>
+    `}
+    
+    <h2>⚡ Accès rapide</h2>
+    <div class="quick-actions">
+      <button class="quick-action" onclick="goTab('portefeuille', 'apports')">
+        <div class="qa-icon">💰</div>
+        <div class="qa-title">Ajouter un apport</div>
+        <div class="qa-desc">Salaire, bonus...</div>
+      </button>
+      <button class="quick-action" onclick="goTab('portefeuille', 'achats')">
+        <div class="qa-icon">📦</div>
+        <div class="qa-title">Acheter un produit</div>
+        <div class="qa-desc">ETF, action, obligation...</div>
+      </button>
+      <button class="quick-action" onclick="goTab('trading')">
+        <div class="qa-icon">🎯</div>
+        <div class="qa-title">Nouveau trade</div>
+        <div class="qa-desc">Pré-trade + journal</div>
+      </button>
+      <button class="quick-action" onclick="goTab('apprendre', 'simulateurs')">
+        <div class="qa-icon">🧮</div>
+        <div class="qa-title">Simulateurs</div>
+        <div class="qa-desc">Intérêts composés, DCF...</div>
+      </button>
+      <button class="quick-action" onclick="goTab('apprendre', 'warren')">
+        <div class="qa-icon">🎩</div>
+        <div class="qa-title">Méthode Buffett</div>
+        <div class="qa-desc">Identifier les sous-cotées</div>
+      </button>
+      <button class="quick-action" onclick="goTab('reglages', 'ressources')">
+        <div class="qa-icon">🔗</div>
+        <div class="qa-title">Mes ressources</div>
+        <div class="qa-desc">Drive, brokers, annexes</div>
+      </button>
+    </div>
+    
+    <h2>👥 Répartition par bénéficiaire</h2>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr>
+          <th>Bénéficiaire</th>
+          <th>Part %</th>
+          <th>Capital</th>
+          <th>Valeur</th>
+          <th>Cash</th>
+          <th>P&L</th>
+        </tr></thead>
+        <tbody>
+          ${state.benefs.map(b => {
+            const pa = paBenef(b.n), val = valBenef(b.n), ca = cashBenef(b.n), pnlB = val - pa;
+            return `<tr>
+              <td data-label="Bénéficiaire"><strong>${esc(b.n)}</strong></td>
+              <td data-label="Part %"><strong style="color:var(--blue)">${(b.part || 0).toFixed(1)}%</strong></td>
+              <td data-label="Capital">${fmtE(pa)}</td>
+              <td data-label="Valeur"><strong style="color:var(--green)">${fmtE(val)}</strong></td>
+              <td data-label="Cash">${fmtE(ca)}</td>
+              <td data-label="P&L"><strong style="color:${pnlB >= 0 ? 'var(--green)' : 'var(--red)'}">${fmtSign(pnlB)}</strong></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+    
+    <h2>⚖️ Profil de risque (cible vs réel)</h2>
+    <div class="card">
+      ${state.profil.map(p => {
+        const profRes = profilReels();
+        const totReel = Object.values(profRes).reduce((a,b)=>a+b, 0);
+        const reel = totReel > 0 ? (profRes[p.c] / totReel * 100) : 0;
+        const cible = p.part || 0;
+        const ecart = reel - cible;
+        const aligned = Math.abs(ecart) < 5;
+        const color = p.c === 'Safe' ? 'var(--green)' : p.c === 'Modéré' ? 'var(--gold)' : p.c === 'Risqué' ? 'var(--orange)' : 'var(--red)';
+        return `<div style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="badge ${PROF_CLASSES[p.c]}">${PROF_ICONS[p.c]} ${p.c}</span>
+              <span style="font-family:var(--f-mono);font-size:var(--fs-xs);color:var(--ink3)">niv ${p.n}</span>
+            </div>
+            <div style="font-family:var(--f-mono);font-size:var(--fs-xs);color:var(--ink2)">
+              Réel <strong>${reel.toFixed(0)}%</strong> · Cible <strong>${cible.toFixed(0)}%</strong>
+              ${aligned ? '<span style="color:var(--green);font-weight:700;margin-left:8px">✓</span>' : `<span style="color:var(--red);font-weight:700;margin-left:8px">${ecart > 0 ? '+' : ''}${ecart.toFixed(0)}%</span>`}
+            </div>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:${Math.min(reel, 100)}%;background:${color}"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+    
+    <h2>💰 Projection (DCA ${fmtE(state.monthly || 0)}/mois · 5%/an)</h2>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Horizon</th><th>Capital projeté</th><th>Rente mensuelle (4%)</th></tr></thead>
+        <tbody>
+          ${[5, 10, 15, 20, 30].map(y => {
+            const p = projectionFV(y);
+            return `<tr>
+              <td data-label="Horizon"><strong>Dans ${y} ans</strong></td>
+              <td data-label="Capital"><strong style="color:var(--gold);font-size:var(--fs-base)">${fmtE(p.capital)}</strong></td>
+              <td data-label="Rente"><strong style="color:var(--green);font-size:var(--fs-base)">${fmtE(p.renteMensuelle)} / mois</strong></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="notice purple">
+      📚 <strong>Pour aller plus loin :</strong> <button onclick="goTab('apprendre', 'rente')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Comprendre la rente future</button> ou <button onclick="goTab('apprendre', 'warren')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Apprendre à évaluer une action comme Warren Buffett</button>
+    </div>
+  `;
+}
+
+// ═════════════════════════════════════════════════════════
+// PORTEFEUILLE — tout-en-un
+// ═════════════════════════════════════════════════════════
+
+function renderPortefeuille() {
+  const totApp = sumApports();
+  const totBen = totalBenefs();
+  const benefOk = Math.abs(totBen - 100) < 0.01;
+  const profOk = Math.abs(totalProfilCible() - 100) < 0.01;
+  const totPA = totalPA();
+  const totVal = totalVal();
+  const productsList = state.produits.map(p => p.n);
+  
+  return `
+    <h1 class="page-title">💼 Portefeuille</h1>
+    <p class="page-sub">Apports · Bénéficiaires · Achats · Profil — en commun, parts en %</p>
+    
+    <div class="notice gold level-only-deb">
+      <span class="term-def" style="margin:0">💡 <strong>Modèle commun :</strong> tu investis dans un pot commun, chaque bénéficiaire reçoit sa quote-part (%) de l'ensemble. Le total des parts doit faire 100%.</span>
+    </div>
+    
+    <div class="kpi-grid">
+      <div class="kpi gold"><div class="kpi-label">Apporté</div><div class="kpi-value">${fmtE(totApp)}</div></div>
+      <div class="kpi blue"><div class="kpi-label">Investi</div><div class="kpi-value">${fmtE(totPA)}</div></div>
+      <div class="kpi green"><div class="kpi-label">Valeur</div><div class="kpi-value">${fmtE(totVal)}</div></div>
+      <div class="kpi ${(totVal-totPA) >= 0 ? 'green' : 'red'}"><div class="kpi-label">P&L</div><div class="kpi-value">${fmtSign(totVal-totPA)}</div></div>
+    </div>
+    
+    <h2 id="apports">📥 1. Apports</h2>
+    <p style="color:var(--ink3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Chaque ligne = une entrée d'argent (salaire, bonus, vente d'un bien...).</p>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Date</th><th>Source</th><th>Montant</th><th></th></tr></thead>
+        <tbody>
+          ${state.apports.map((a, i) => `<tr>
+            <td data-label="Date"><input type="date" class="input" value="${escAttr(a.date)}" onchange="update('apports', ${i}, 'date', this.value)" aria-label="Date apport ${i+1}"></td>
+            <td data-label="Source"><input type="text" class="input" value="${escAttr(a.source)}" onchange="update('apports', ${i}, 'source', this.value)" aria-label="Source apport ${i+1}"></td>
+            <td data-label="Montant"><input type="number" class="input highlight" value="${a.montant}" onchange="update('apports', ${i}, 'montant', parseFloat(this.value) || 0)" style="max-width:120px" aria-label="Montant apport ${i+1}"></td>
+            <td><button class="btn ghost sm" onclick="remove('apports', ${i})" aria-label="Supprimer apport ${i+1}">✕</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost sm" onclick="add('apports', {date: new Date().toISOString().split('T')[0], source: '', montant: 0})">+ Ajouter un apport</button>
+      </div>
+    </div>
+    
+    <h2 id="monthly">📅 2. DCA — apport mensuel récurrent</h2>
+    <p style="color:var(--ink3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Combien tu prévois d'investir chaque mois. Sert au calcul de la rente future.</p>
+    <div class="card">
+      <div style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <label class="label" for="monthly-input">Apport mensuel</label>
+          <input type="number" id="monthly-input" class="input highlight" value="${state.monthly || 0}" placeholder="500" style="max-width:240px" onchange="state.monthly = parseFloat(this.value) || 0; save('monthly', state.monthly); rerender();" aria-label="Apport mensuel récurrent">
+        </div>
+        <div style="color:var(--ink3);font-family:var(--f-mono);font-size:var(--fs-sm);padding-bottom:11px">
+          = <strong style="color:var(--gold);font-size:var(--fs-base)">${fmtE((state.monthly || 0) * 12)}/an</strong>
+        </div>
+      </div>
+    </div>
+    
+    <h2 id="benefs">👥 3. Bénéficiaires (quote-parts en %)</h2>
+    <p style="color:var(--ink3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Pour qui tu investis. Les % s'appliquent à <strong>tout</strong> l'investissement commun.</p>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Nom</th><th>Relation</th><th>Part %</th><th>Capital</th><th>Valeur</th><th></th></tr></thead>
+        <tbody>
+          ${state.benefs.map((b, i) => `<tr>
+            <td data-label="Nom"><input type="text" class="input" value="${escAttr(b.n)}" onchange="update('benefs', ${i}, 'n', this.value)" aria-label="Nom bénéficiaire ${i+1}"></td>
+            <td data-label="Relation"><input type="text" class="input" value="${escAttr(b.rel || '')}" onchange="update('benefs', ${i}, 'rel', this.value)" aria-label="Relation"></td>
+            <td data-label="Part %"><input type="number" step="0.1" class="input highlight" value="${b.part}" onchange="update('benefs', ${i}, 'part', parseFloat(this.value) || 0)" style="max-width:90px" aria-label="Part en pourcent"></td>
+            <td data-label="Capital"><strong style="color:var(--blue)">${fmtE(paBenef(b.n))}</strong></td>
+            <td data-label="Valeur"><strong style="color:var(--green)">${fmtE(valBenef(b.n))}</strong></td>
+            <td><button class="btn ghost sm" onclick="remove('benefs', ${i})" aria-label="Supprimer">✕</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <button class="btn ghost sm" onclick="add('benefs', {n: '', rel: '', part: 0})">+ Ajouter</button>
+        ${!benefOk ? `<button class="btn sm" onclick="rebalanceTo100('benefs')">⚖ Rééquilibrer à 100%</button>` : ''}
+        <button class="btn ghost sm" onclick="equalSplit('benefs')">↔ Répartition égale</button>
+      </div>
+      <div class="coherence ${benefOk ? 'ok' : 'warn'}">
+        <span>Total des parts</span>
+        <strong>${benefOk ? '✅ ' + totBen.toFixed(1) + '%' : '⚠ ' + totBen.toFixed(1) + '% — Doit faire 100%'}</strong>
+      </div>
+    </div>
+    
+    <h2 id="achats">📦 4. Achats (positions communes)</h2>
+    <p style="color:var(--ink3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Tous les achats sont en commun. Les % bénéficiaires s'appliquent automatiquement.</p>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Date</th><th>Produit</th><th>Qté</th><th>PA</th><th>PA total</th><th>Cours</th><th>Valeur</th><th>P&L</th><th></th></tr></thead>
+        <tbody>
+          ${state.achats.length === 0 ? `<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--ink3)">Aucun achat. Clique sur "+ Ajouter" ci-dessous.</td></tr>` : state.achats.map((a, i) => {
+            const paTot = (parseFloat(a.qte) || 0) * (parseFloat(a.pa) || 0);
+            const val = (parseFloat(a.qte) || 0) * (parseFloat(a.cours) || parseFloat(a.pa) || 0);
+            const pnl = val - paTot;
+            const prod = getProduct(a.produit);
+            return `<tr>
+              <td data-label="Date"><input type="date" class="input" value="${escAttr(a.date)}" onchange="update('achats', ${i}, 'date', this.value)" aria-label="Date achat"></td>
+              <td data-label="Produit"><select class="select" onchange="update('achats', ${i}, 'produit', this.value)" style="min-width:200px" aria-label="Produit acheté">${productsList.map(p => `<option value="${escAttr(p)}" ${a.produit === p ? 'selected' : ''}>${esc(p)}</option>`).join('')}</select>${prod ? `<div style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="risk-dot" style="background:${RISK_COLORS[prod.risq]}">${prod.risq}</span><span class="badge ${PROF_CLASSES[prod.prof]}">${prod.prof}</span></div>` : ''}</td>
+              <td data-label="Qté"><input type="number" step="0.01" class="input" value="${a.qte || ''}" onchange="update('achats', ${i}, 'qte', parseFloat(this.value) || 0)" style="max-width:90px" aria-label="Quantité"></td>
+              <td data-label="PA"><input type="number" step="0.01" class="input" value="${a.pa || ''}" onchange="update('achats', ${i}, 'pa', parseFloat(this.value) || 0)" style="max-width:100px" aria-label="Prix d'achat"></td>
+              <td data-label="PA total">${fmtE(paTot)}</td>
+              <td data-label="Cours"><input type="number" step="0.01" class="input" value="${a.cours || ''}" onchange="update('achats', ${i}, 'cours', parseFloat(this.value) || 0)" style="max-width:100px" aria-label="Cours actuel"></td>
+              <td data-label="Valeur"><strong>${fmtE(val)}</strong></td>
+              <td data-label="P&L"><strong style="color:${pnl >= 0 ? 'var(--green)' : 'var(--red)'}">${fmtSign(pnl)}</strong></td>
+              <td><button class="btn ghost sm" onclick="remove('achats', ${i})" aria-label="Supprimer">✕</button></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+      <div style="margin-top:12px">
+        <button class="btn ghost sm" onclick="add('achats', {date: new Date().toISOString().split('T')[0], produit: '${escAttr(productsList[0] || '')}', qte: 0, pa: 0, cours: 0})">+ Ajouter un achat</button>
+      </div>
+    </div>
+    
+    <h2 id="profil">⚖️ 5. Profil de risque</h2>
+    <p style="color:var(--ink3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Cible par catégorie de risque. Compare avec ton allocation réelle.</p>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Catégorie</th><th>Niveau</th><th>Cible %</th><th>Réel %</th><th>Capital</th><th>Écart</th></tr></thead>
+        <tbody>
+          ${state.profil.map((p, i) => {
+            const profRes = profilReels();
+            const totReel = Object.values(profRes).reduce((a,b)=>a+b, 0);
+            const reel = totReel > 0 ? (profRes[p.c] / totReel * 100) : 0;
+            const ecart = reel - (p.part || 0);
+            const aligned = Math.abs(ecart) < 5;
+            return `<tr>
+              <td data-label="Catégorie"><span class="badge ${PROF_CLASSES[p.c]}">${PROF_ICONS[p.c]} ${p.c}</span></td>
+              <td data-label="Niveau"><strong style="font-family:var(--f-mono)">${esc(p.n)}</strong></td>
+              <td data-label="Cible %"><input type="number" step="0.1" class="input highlight" value="${p.part}" onchange="update('profil', ${i}, 'part', parseFloat(this.value) || 0)" style="max-width:80px" aria-label="Cible en %"></td>
+              <td data-label="Réel %"><strong>${reel.toFixed(1)}%</strong></td>
+              <td data-label="Capital"><strong style="color:var(--green)">${fmtE(profRes[p.c])}</strong></td>
+              <td data-label="Écart"><span class="badge ${aligned ? 'safe' : 'jack'}">${aligned ? '✓ Aligné' : (ecart > 0 ? '+' : '') + ecart.toFixed(1) + '%'}</span></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+      ${!profOk ? `<div style="margin-top:12px"><button class="btn sm" onclick="rebalanceTo100('profil')">⚖ Rééquilibrer à 100%</button></div>` : ''}
+      <div class="coherence ${profOk ? 'ok' : 'warn'}">
+        <span>Total cibles</span>
+        <strong>${profOk ? '✅ 100%' : '⚠ ' + totalProfilCible().toFixed(1) + '%'}</strong>
+      </div>
+    </div>
+    
+    <h2>📚 Catalogue produits</h2>
+    <details class="card" style="padding:0">
+      <summary style="padding:var(--sp-4);cursor:pointer;font-family:var(--f-mono);font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-size:var(--fs-xs)">
+        ${state.produits.length} produits référencés · cliquer pour déplier
+      </summary>
+      <div style="padding:0 var(--sp-4) var(--sp-4)">
+        <table class="table responsive">
+          <thead><tr><th>Produit</th><th>Catégorie</th><th>Risque /10</th><th>Profil</th><th>Rdt %/an</th><th></th></tr></thead>
+          <tbody>
+            ${state.produits.map((p, i) => `<tr>
+              <td data-label="Produit"><input type="text" class="input" value="${escAttr(p.n)}" onchange="update('produits', ${i}, 'n', this.value)" style="min-width:180px" aria-label="Nom produit"></td>
+              <td data-label="Catégorie"><select class="select" onchange="update('produits', ${i}, 'cat', this.value)">${['Cash','Obligation','Actions','Immobilier','Crypto','Trading','Commodité','Autre'].map(c => `<option value="${c}" ${p.cat === c ? 'selected' : ''}>${c}</option>`).join('')}</select></td>
+              <td data-label="Risque"><select class="select" onchange="update('produits', ${i}, 'risq', parseInt(this.value))" style="background:${RISK_COLORS[p.risq] || '#999'};color:#fff;font-weight:700;max-width:80px">${[1,2,3,4,5,6,7,8,9,10].map(n => `<option value="${n}" ${p.risq === n ? 'selected' : ''}>${n}</option>`).join('')}</select></td>
+              <td data-label="Profil"><select class="select" onchange="update('produits', ${i}, 'prof', this.value)">${['Safe','Modéré','Risqué','Jackpot'].map(pr => `<option value="${pr}" ${p.prof === pr ? 'selected' : ''}>${pr}</option>`).join('')}</select></td>
+              <td data-label="Rdt %/an"><input type="number" step="0.1" class="input" value="${p.rdt}" onchange="update('produits', ${i}, 'rdt', parseFloat(this.value) || 0)" style="max-width:80px" aria-label="Rendement"></td>
+              <td><button class="btn ghost sm" onclick="remove('produits', ${i})" aria-label="Supprimer">✕</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div style="margin-top:12px">
+          <button class="btn ghost sm" onclick="add('produits', {n: '', cat: 'Actions', risq: 5, prof: 'Modéré', rdt: 5})">+ Ajouter un produit</button>
+        </div>
+      </div>
+    </details>
+  `;
+}
+</script>
+<script>
+// ═════════════════════════════════════════════════════════
+// TRADING — Pré-trade + Journal + Stats
+// FIX FOCUS : tForm en variable globale, seule la zone "analysis" se re-render
+// ═════════════════════════════════════════════════════════
+
+let tForm = {
+  date: new Date().toISOString().split('T')[0],
+  actif: '', dir: 'LONG',
+  capital: 10000, risk: 1,
+  entry: '', sl: '', tp1: '', tp2: '', tp3: '',
+  pattern: '', confluences: 3,
+  tendance: 'Haussière', vix: 18, macro: 'OUI', news: 'NON',
+  psyNeutre: 'OUI', psyPertes: 'OUI', psyConv: 'OUI', psyPret: 'OUI',
+  notes: ''
+};
+let tFeedback = null;
+
+function updT(key, value) {
+  tForm[key] = value;
+  const el = document.getElementById('analysis-zone');
+  if (el) el.innerHTML = renderTAnalysis();
+}
+
+function renderTAnalysis() {
+  const f = tForm;
+  const e = parseFloat(f.entry) || 0;
+  const sl = parseFloat(f.sl) || 0;
+  const tp1 = parseFloat(f.tp1) || 0, tp2 = parseFloat(f.tp2) || 0, tp3 = parseFloat(f.tp3) || 0;
+  const cap = parseFloat(f.capital) || 0, rp = parseFloat(f.risk) || 0;
+  const re = cap * rp / 100;
+  const d = Math.abs(e - sl);
+  const sz = d > 0 ? re / d : 0;
+  const rr1 = d > 0 && tp1 > 0 ? Math.abs(tp1 - e) / d : 0;
+  const rr2 = d > 0 && tp2 > 0 ? Math.abs(tp2 - e) / d : 0;
+  const rr3 = d > 0 && tp3 > 0 ? Math.abs(tp3 - e) / d : 0;
+  
+  const checks = {
+    risque: rp > 0 && rp <= 2,
+    rr: rr1 >= 2,
+    setup: !!f.actif && e > 0 && sl > 0 && tp1 > 0,
+    conf: parseInt(f.confluences) >= 3,
+    psy: f.psyNeutre === 'OUI' && f.psyPertes === 'OUI' && f.psyConv === 'OUI' && f.psyPret === 'OUI',
+    macro: f.macro === 'OUI' && f.news === 'NON',
+  };
+  const score = Object.values(checks).filter(Boolean).length;
+  const valid = score >= 5;
+  
+  const metrics = [
+    { l: 'Risque €', v: re > 0 ? fmtE(re) : '—', c: checks.risque ? 'var(--green)' : 'var(--red)' },
+    { l: 'Taille', v: sz > 0 ? fmt(sz) : '—', c: 'var(--dark)' },
+    { l: 'R/R 1', v: rr1 > 0 ? rr1.toFixed(2) + 'x' : '—', c: checks.rr ? 'var(--green)' : 'var(--orange)' },
+    { l: 'R/R 2', v: rr2 > 0 ? rr2.toFixed(2) + 'x' : '—', c: rr2 >= 3 ? 'var(--green)' : 'var(--ink3)' },
+    { l: 'R/R 3', v: rr3 > 0 ? rr3.toFixed(2) + 'x' : '—', c: rr3 >= 4 ? 'var(--green)' : 'var(--ink3)' },
+    { l: 'Score', v: score + '/6', c: valid ? 'var(--green)' : 'var(--orange)' },
+  ];
+  
+  const canAdd = f.actif && e > 0 && sl > 0 && tp1 > 0;
+  const checkLabels = { risque: 'Risque ≤2%', rr: 'R/R ≥2', setup: 'Setup complet', conf: '≥3 confluences', psy: 'Psycho OK', macro: 'Macro OK' };
+  
+  return `
+    <div class="card-title">🎯 Analyse automatique</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:8px;margin-bottom:16px">
+      ${metrics.map(m => `<div style="text-align:center;background:var(--paper);padding:12px 6px;border-radius:var(--r-md);border:1px solid var(--border)">
+        <div style="font-size:10px;font-family:var(--f-mono);color:var(--ink3);margin-bottom:3px;text-transform:uppercase;letter-spacing:1px">${m.l}</div>
+        <div style="font-size:var(--fs-md);font-family:var(--f-mono);color:${m.c};font-weight:800">${m.v}</div>
+      </div>`).join('')}
+    </div>
+    <div style="background:${valid ? 'var(--green-bg)' : 'var(--orange-bg)'};border:2px solid ${valid ? 'var(--green)' : 'var(--orange)'};border-radius:var(--r-md);padding:14px;margin-bottom:14px">
+      <div style="font-size:var(--fs-base);font-family:var(--f-mono);color:${valid ? 'var(--green)' : 'var(--orange)'};font-weight:700;margin-bottom:8px;letter-spacing:1px">
+        ${valid ? '✅ SETUP VALIDÉ' : '⚠ SETUP À RÉVISER'}
+      </div>
+      <div style="font-size:var(--fs-xs);line-height:1.8">
+        ${Object.entries(checkLabels).map(([k, l]) => `<span style="display:inline-block;margin-right:10px;color:${checks[k] ? 'var(--green)' : 'var(--red)'};font-weight:600">${checks[k] ? '✓' : '✗'} ${l}</span>`).join('')}
+      </div>
+    </div>
+    <button class="btn full" onclick="addTrade()" ${!canAdd ? 'disabled' : `style="background:${valid ? 'var(--green)' : 'var(--gold)'}"`}>
+      📌 Ajouter au journal
+    </button>
+    ${tFeedback ? `<div class="notice ${tFeedback.type === 'success' ? 'green' : 'red'}" style="margin-top:10px;font-style:normal;font-weight:700">${esc(tFeedback.msg)}</div>` : ''}
+  `;
+}
+
+function addTrade() {
+  const f = tForm;
+  const e = parseFloat(f.entry) || 0, sl = parseFloat(f.sl) || 0;
+  const tp1 = parseFloat(f.tp1) || 0, tp2 = parseFloat(f.tp2) || 0, tp3 = parseFloat(f.tp3) || 0;
+  const cap = parseFloat(f.capital) || 0, rp = parseFloat(f.risk) || 0;
+  const re = cap * rp / 100;
+  const d = Math.abs(e - sl);
+  const sz = d > 0 ? re / d : 0;
+  const rr1 = d > 0 && tp1 > 0 ? Math.abs(tp1 - e) / d : 0;
+  const rr2 = d > 0 && tp2 > 0 ? Math.abs(tp2 - e) / d : 0;
+  const rr3 = d > 0 && tp3 > 0 ? Math.abs(tp3 - e) / d : 0;
+  
+  if (!f.actif || e === 0 || sl === 0 || tp1 === 0) {
+    tFeedback = { type: 'error', msg: '⚠ Renseigne Actif, Entrée, SL et TP1' };
+    const a = document.getElementById('analysis-zone');
+    if (a) a.innerHTML = renderTAnalysis();
+    setTimeout(() => { 
+      tFeedback = null; 
+      const a2 = document.getElementById('analysis-zone'); 
+      if (a2) a2.innerHTML = renderTAnalysis(); 
+    }, 3000);
+    return;
+  }
+  
+  const trade = {
+    id: String(state.trades.length + 1).padStart(3, '0'),
+    date: f.date, actif: f.actif, dir: f.dir,
+    capital: cap, risk: rp, entry: e, sl, tp1, tp2, tp3,
+    re: re.toFixed(2), dist: d.toFixed(5), taille: sz.toFixed(0),
+    rr1: rr1.toFixed(2), rr2: rr2.toFixed(2), rr3: rr3.toFixed(2),
+    pattern: f.pattern, conf: f.confluences,
+    tendance: f.tendance, vix: f.vix, macro: f.macro, news: f.news,
+    statut: '🟡 En cours', resultat: '', notes: f.notes,
+    ts: new Date().toISOString(),
+  };
+  state.trades.push(trade);
+  save('trades', state.trades);
+  
+  tFeedback = { type: 'success', msg: `✓ Trade ${trade.id} ajouté (${state.trades.length} total)` };
+  // Reset form
+  tForm.actif = ''; tForm.entry = ''; tForm.sl = ''; tForm.tp1 = ''; tForm.tp2 = ''; tForm.tp3 = '';
+  tForm.pattern = ''; tForm.notes = '';
+  rerender();
+  setTimeout(() => { tFeedback = null; if (state.currentTab === 'trading') rerender(); }, 4000);
+}
+
+let jFilter = 'all';
+function setJFilter(f) { jFilter = f; rerender(); }
+function updTrade(i, k, v) { state.trades[i][k] = v; save('trades', state.trades); rerender(); }
+function delTrade(i) { 
+  if (!confirm('Supprimer ce trade ?')) return; 
+  state.trades.splice(i, 1); save('trades', state.trades); rerender(); 
+}
+function clearAllTrades() {
+  if (!confirm(`Vider les ${state.trades.length} trades ? Cette action est irréversible.`)) return;
+  state.trades = []; save('trades', []); rerender();
+}
+
+function exportTradesCSV() {
+  if (!state.trades.length) { alert('Aucun trade'); return; }
+  const h = ['ID','Date','Actif','Dir','Capital','Risque%','Risque€','Entrée','SL','TP1','TP2','TP3','Dist','Taille','R/R1','R/R2','R/R3','Pattern','Statut','Résultat€','Notes'];
+  const r = state.trades.map(t => [t.id,t.date,t.actif,t.dir,t.capital,t.risk,t.re,t.entry,t.sl,t.tp1,t.tp2,t.tp3,t.dist,t.taille,t.rr1,t.rr2,t.rr3,t.pattern,t.statut,t.resultat,(t.notes||'').replace(/[\n\r,]/g,' ')]);
+  const csv = [h, ...r].map(row => row.map(v => `"${v ?? ''}"`).join(',')).join('\n');
+  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `HERMES_trades_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function renderTrading() {
+  const f = tForm;
+  const wins = state.trades.filter(t => t.statut?.includes('✅'));
+  const losses = state.trades.filter(t => t.statut?.includes('❌'));
+  const open = state.trades.filter(t => t.statut?.includes('🟡'));
+  const closed = wins.length + losses.length;
+  const wr = closed > 0 ? (wins.length / closed * 100) : 0;
+  const totPnL = state.trades.filter(t => !t.statut?.includes('🟡')).reduce((a, t) => a + (parseFloat(t.resultat) || 0), 0);
+  const gAvg = wins.length > 0 ? wins.reduce((a, t) => a + (parseFloat(t.resultat) || 0), 0) / wins.length : 0;
+  const lAvg = losses.length > 0 ? losses.reduce((a, t) => a + (parseFloat(t.resultat) || 0), 0) / losses.length : 0;
+  const rrM = lAvg !== 0 ? Math.abs(gAvg / lAvg) : 0;
+  const tG = wins.reduce((a, t) => a + (parseFloat(t.resultat) || 0), 0);
+  const tL = Math.abs(losses.reduce((a, t) => a + (parseFloat(t.resultat) || 0), 0));
+  const pf = tL > 0 ? tG / tL : 0;
+  const esp = closed > 0 ? (wr / 100) * gAvg + (1 - wr / 100) * lAvg : 0;
+  const filt = jFilter === 'all' ? state.trades : jFilter === 'open' ? open : jFilter === 'won' ? wins : jFilter === 'lost' ? losses : state.trades;
+  
+  const sections = [
+    { title: '📊 Contexte marché', color: 'var(--purple)', fields: [
+      { l: 'Tendance Daily', k: 'tendance', type: 'select', opts: ['Haussière','Baissière','Range'] },
+      { l: 'VIX', k: 'vix', type: 'number' },
+      { l: 'Macro favorable ?', k: 'macro', type: 'select', opts: ['OUI','NON'] },
+      { l: 'News importante ?', k: 'news', type: 'select', opts: ['OUI','NON'] },
+    ]},
+    { title: '🎯 Setup', color: 'var(--green)', fields: [
+      { l: 'Actif', k: 'actif', type: 'text', ph: 'EUR/USD, AAPL...' },
+      { l: 'Direction', k: 'dir', type: 'select', opts: ['LONG','SHORT'] },
+      { l: 'Prix entrée', k: 'entry', type: 'number', ph: '1.0850' },
+      { l: 'Stop Loss', k: 'sl', type: 'number', ph: '1.0830' },
+      { l: 'TP1', k: 'tp1', type: 'number', ph: '1.0890' },
+      { l: 'TP2', k: 'tp2', type: 'number', ph: '1.0930' },
+      { l: 'TP3', k: 'tp3', type: 'number', ph: '1.0970' },
+      { l: 'Pattern', k: 'pattern', type: 'text', ph: 'Flag, H&S...' },
+      { l: 'Confluences', k: 'confluences', type: 'number' },
+    ]},
+    { title: '💰 Risque', color: 'var(--gold)', fields: [
+      { l: 'Capital €', k: 'capital', type: 'number' },
+      { l: 'Risque %', k: 'risk', type: 'number' },
+    ]},
+    { title: '🧠 Psychologie', color: 'var(--red)', fields: [
+      { l: 'État neutre ?', k: 'psyNeutre', type: 'select', opts: ['OUI','NON'] },
+      { l: 'Pas de revenge ?', k: 'psyPertes', type: 'select', opts: ['OUI','NON'] },
+      { l: 'Conviction ?', k: 'psyConv', type: 'select', opts: ['OUI','NON'] },
+      { l: 'Prêt à perdre ?', k: 'psyPret', type: 'select', opts: ['OUI','NON'] },
+    ]},
+  ];
+  
+  return `
+    <h1 class="page-title">🎯 Trading</h1>
+    <p class="page-sub">Pré-trade · Journal · Performance — sur une page</p>
+    
+    <div class="kpi-grid">
+      <div class="kpi dark"><div class="kpi-icon">📋</div><div class="kpi-label">Total</div><div class="kpi-value">${state.trades.length}</div></div>
+      <div class="kpi orange"><div class="kpi-icon">🟡</div><div class="kpi-label">En cours</div><div class="kpi-value">${open.length}</div></div>
+      <div class="kpi gold"><div class="kpi-icon">🎯</div><div class="kpi-label">Win Rate</div><div class="kpi-value">${closed > 0 ? wr.toFixed(0) + '%' : '—'}</div></div>
+      <div class="kpi ${totPnL >= 0 ? 'green' : 'red'}"><div class="kpi-icon">${totPnL >= 0 ? '📈' : '📉'}</div><div class="kpi-label">P&L</div><div class="kpi-value">${totPnL !== 0 ? fmtSign(totPnL) : '—'}</div></div>
+    </div>
+    
+    <h2>✏️ Nouveau trade</h2>
+    <div class="notice red level-only-deb">
+      💡 Remplis les champs ci-dessous. Les indicateurs en bas se calculent automatiquement. Quand le score atteint 5/6, tu peux ajouter au journal.
+    </div>
+    
+    <div class="card" style="border-left:4px solid var(--blue)">
+      <div class="card-title" style="color:var(--blue)">📅 Date</div>
+      <div class="form-grid">
+        <div>
+          <label class="label" for="t-date">Date du trade</label>
+          <input type="date" id="t-date" class="input" value="${escAttr(f.date)}" onchange="updT('date', this.value)">
+        </div>
+      </div>
+    </div>
+    
+    ${sections.map(s => `
+      <div class="card" style="border-left:4px solid ${s.color}">
+        <div class="card-title" style="color:${s.color}">${s.title}</div>
+        <div class="form-grid">
+          ${s.fields.map(fld => `<div>
+            <label class="label" for="t-${fld.k}">${fld.l}</label>
+            ${fld.type === 'select'
+              ? `<select id="t-${fld.k}" class="select" onchange="updT('${fld.k}', this.value)">${fld.opts.map(o => `<option value="${escAttr(o)}" ${f[fld.k] === o ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`
+              : `<input type="${fld.type}" id="t-${fld.k}" class="input highlight" value="${escAttr(f[fld.k])}" placeholder="${escAttr(fld.ph || '')}" oninput="updT('${fld.k}', this.value)" autocomplete="off">`}
+          </div>`).join('')}
+        </div>
+      </div>
+    `).join('')}
+    
+    <div class="card">
+      <div class="card-title">📝 Notes</div>
+      <textarea id="t-notes" class="input" placeholder="Pourquoi ce trade, contexte, observations..." oninput="updT('notes', this.value)">${esc(f.notes)}</textarea>
+    </div>
+    
+    <div class="card" style="background:var(--paper2);border:2px solid var(--gold)" id="analysis-zone">
+      ${renderTAnalysis()}
+    </div>
+    
+    <h2>📋 Journal & Performance</h2>
+    
+    ${closed > 0 ? `<div class="card">
+      <div class="card-title">📈 Statistiques globales</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px">
+        <div><div class="label">R/R moyen</div><strong style="font-size:var(--fs-md);color:var(--gold);font-family:var(--f-mono)">${rrM > 0 ? rrM.toFixed(2) + 'x' : '—'}</strong></div>
+        <div><div class="label">Profit Factor</div><strong style="font-size:var(--fs-md);color:var(--gold);font-family:var(--f-mono)">${pf > 0 ? pf.toFixed(2) : '—'}</strong></div>
+        <div><div class="label">Gain moyen</div><strong style="font-size:var(--fs-md);color:var(--green);font-family:var(--f-mono)">${wins.length > 0 ? '+' + fmtE(gAvg) : '—'}</strong></div>
+        <div><div class="label">Perte moyenne</div><strong style="font-size:var(--fs-md);color:var(--red);font-family:var(--f-mono)">${losses.length > 0 ? fmtE(lAvg) : '—'}</strong></div>
+        <div><div class="label">Espérance/trade</div><strong style="font-size:var(--fs-md);color:${esp >= 0 ? 'var(--green)' : 'var(--red)'};font-family:var(--f-mono)">${(esp >= 0 ? '+' : '') + fmtE(esp)}</strong></div>
+      </div>
+      ${esp !== 0 ? `<div class="notice ${esp > 0 ? 'green' : 'red'}" style="margin-top:12px;font-style:normal">${esp > 0 ? '✅ Stratégie viable — Espérance > 0' : '❌ Stratégie perdante — Revois ton edge'}</div>` : ''}
+    </div>` : ''}
+    
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
+        ${[['all','Tous'],['open','🟡 Ouverts'],['won','✅ Gagnants'],['lost','❌ Perdants']].map(([id, l]) => `<button class="btn ${jFilter === id ? '' : 'ghost'} sm" onclick="setJFilter('${id}')">${l}</button>`).join('')}
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="btn green sm" onclick="exportTradesCSV()">⬇ CSV</button>
+        ${state.trades.length > 0 ? `<button class="btn ghost sm" style="color:var(--red);border-color:var(--red)" onclick="clearAllTrades()">🗑 Vider</button>` : ''}
+      </div>
+    </div>
+    
+    ${filt.length === 0 ? `<div class="card empty">
+      <div class="empty-icon">📋</div>
+      <p>${state.trades.length === 0 ? 'Aucun trade. Remplis le formulaire en haut.' : 'Aucun trade ne correspond à ce filtre'}</p>
+    </div>` : filt.map(t => {
+      const ri = state.trades.indexOf(t);
+      return `<div class="trade-card">
+        <div class="trade-card-h">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span class="trade-tag">#${esc(t.id)}</span>
+              <span style="font-size:var(--fs-base);font-family:var(--f-mono);font-weight:700">${esc(t.actif)}</span>
+              <span style="font-size:var(--fs-xs);color:${t.dir === 'LONG' ? 'var(--green)' : 'var(--red)'};font-weight:700;font-family:var(--f-mono)">${esc(t.dir)}</span>
+              <span style="font-size:var(--fs-xs);color:var(--ink3);font-family:var(--f-mono)">${esc(t.date)}</span>
+            </div>
+            <div style="font-size:var(--fs-xs);color:var(--ink3);margin-top:4px">Pattern : ${esc(t.pattern || '—')}</div>
+          </div>
+          <button class="btn ghost sm" style="color:var(--red)" onclick="delTrade(${ri})" aria-label="Supprimer trade #${esc(t.id)}">🗑</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:6px;margin-bottom:10px;padding:10px;background:var(--paper2);border-radius:var(--r-md)">
+          ${[['Entrée',t.entry],['SL',t.sl],['TP1',t.tp1],['TP2',t.tp2||'—'],['TP3',t.tp3||'—'],['Taille',t.taille],['R/R1',t.rr1+'x'],['Risque',t.re+'€']].map(([l,v]) => `<div style="text-align:center"><div style="font-size:9px;font-family:var(--f-mono);color:var(--ink3);text-transform:uppercase;letter-spacing:1px">${l}</div><div style="font-size:var(--fs-xs);font-family:var(--f-mono);font-weight:700">${esc(v)}</div></div>`).join('')}
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+          <div>
+            <label class="label" for="status-${ri}">Statut</label>
+            <select id="status-${ri}" class="select" onchange="updTrade(${ri}, 'statut', this.value)">
+              ${['🟡 En cours','✅ TP1 atteint','✅ TP2 atteint','✅ TP3 atteint','✅ Break-even','❌ Stop Loss','❌ Sortie manuelle'].map(s => `<option value="${escAttr(s)}" ${t.statut === s ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="label" for="result-${ri}">Résultat €</label>
+            <input type="number" id="result-${ri}" class="input" value="${t.resultat || ''}" onchange="updTrade(${ri}, 'resultat', this.value)" placeholder="0">
+          </div>
+        </div>
+        ${t.notes ? `<div style="margin-top:10px;font-size:var(--fs-xs);color:var(--ink3);font-style:italic">« ${esc(t.notes)} »</div>` : ''}
+      </div>`;
+    }).join('')}
+    
+    <div class="notice purple" style="margin-top:24px">
+      📚 <strong>Pour aller plus loin :</strong> 
+      <button onclick="goTab('apprendre', 'piliers')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">8 piliers du trading</button> · 
+      <button onclick="goTab('apprendre', 'patterns')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Patterns chartistes</button>
+    </div>
+  `;
+}
+</script>
+<script>
+// ═════════════════════════════════════════════════════════
+// APPRENDRE — Tous les cours intégrés
+// ═════════════════════════════════════════════════════════
+
+const LEARN_SECTIONS = [
+  { id: 'intro', label: '📖 Introduction' },
+  { id: 'actifs', label: '💎 Types d\'actifs' },
+  { id: 'warren', label: '🎩 Méthode Buffett' },
+  { id: 'piliers', label: '🏛 8 Piliers' },
+  { id: 'patterns', label: '📈 Patterns' },
+  { id: 'simulateurs', label: '🧮 Simulateurs' },
+  { id: 'glossaire', label: '📖 Glossaire' },
+  { id: 'fiscalite', label: '📑 Fiscalité' },
+];
+
+let currentLearn = 'intro';
+
+function setLearn(id) {
+  currentLearn = id;
+  rerender();
+  setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+}
+
+function isRead(id) { return state.courseProgress.includes(id); }
+function toggleRead(id) {
+  const idx = state.courseProgress.indexOf(id);
+  if (idx >= 0) state.courseProgress.splice(idx, 1);
+  else state.courseProgress.push(id);
+  save('courseProgress', state.courseProgress);
+  rerender();
+}
+function readBtn(id) {
+  const r = isRead(id);
+  return `<button class="badge ${r ? 'safe' : 'info'}" onclick="toggleRead('${id}')" style="cursor:pointer;border:none">${r ? '✓ Lu' : '○ Non lu'}</button>`;
+}
+
+function renderApprendre() {
+  return `
+    <h1 class="page-title">📚 Apprendre</h1>
+    <p class="page-sub">Cours intégrés · adapté à ton niveau (${state.level})</p>
+    
+    <div class="nav-tabs" style="background:var(--paper2);border:1px solid var(--border);border-radius:var(--r-lg);padding:4px;margin-bottom:24px;position:relative;top:0">
+      ${LEARN_SECTIONS.map(s => `<button class="nav-tab" onclick="setLearn('${s.id}')" aria-selected="${currentLearn === s.id}" style="border-bottom:none;border-radius:var(--r-md);${currentLearn === s.id ? 'background:var(--gold);color:var(--white)' : ''}">${s.label}</button>`).join('')}
+    </div>
+    
+    <div id="learn-content">${learnRenderers[currentLearn]()}</div>
+  `;
+}
+
+const learnRenderers = {
+  intro: () => {
+    const total = 50; // estimation
+    const read = state.courseProgress.length;
+    const pct = Math.min(100, (read / total) * 100);
+    return `
+    <h2 id="intro">📖 Bienvenue dans HERMES Cours</h2>
+    <p>Formation théorique complète · trading et investissement long terme.</p>
+    
+    <div class="card" style="background:linear-gradient(135deg,var(--gold-bg) 0%, var(--paper) 100%);border:1px solid var(--gold)">
+      <div class="card-title">📊 Ta progression</div>
+      <div class="bar"><div class="bar-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--gold),var(--gold-hover))"></div></div>
+      <div style="font-family:var(--f-mono);font-size:var(--fs-sm);color:var(--ink3);margin-top:8px">${read} chapitres lus · ${pct.toFixed(0)}%</div>
+    </div>
+    
+    <h3 id="rente">🎯 L'objectif : construire une rente</h3>
+    <p>HERMES n'est pas un outil "pour faire des coups". C'est un outil pour bâtir patiemment un patrimoine qui, à terme, génère une <strong>rente passive</strong> — pour toi et tes proches.</p>
+    
+    <h4>Trois principes fondamentaux</h4>
+    <ol>
+      <li><strong>Intérêts composés</strong> — placer 1 000€ à 5%/an pendant 30 ans donne 4 322€. Le temps est ton allié.<span class="term-def">Intérêt composé = intérêts qui produisent à leur tour des intérêts.</span></li>
+      <li><strong>DCA (Dollar Cost Averaging)</strong> — investir un montant fixe chaque mois lisse les points d'entrée. Tu n'essaies pas de prédire le marché.</li>
+      <li><strong>Trinity Study (règle des 4%)</strong> — un patrimoine peut soutenir un retrait annuel de 4% indéfiniment dans 95% des scénarios historiques. C'est ta cible.</li>
+    </ol>
+    
+    <div class="notice green">
+      <strong>Exemple chiffré.</strong> Tu investis 500€/mois pendant 20 ans à 5%/an. Résultat : ~205 000€. Avec la règle 4%, ça génère 683€/mois de rente passive à vie.
+    </div>
+    
+    <h3>Investissement vs trading — la séparation HERMES</h3>
+    <p>L'<strong>investissement</strong> (ETF, obligations, immo) construit la base : majoritairement Safe et Modéré. Lent, ennuyeux, gagnant.</p>
+    <p>Le <strong>trading actif</strong> est une activité <em>annexe</em>, avec une part dédiée (5-15% max du patrimoine). Il sert à apprendre, à doper le rendement potentiel, jamais à risquer ta retraite.</p>
+    
+    <div class="notice red"><strong>⚠ Règle d'or :</strong> ne mets jamais en trading actif plus que ce que tu peux te permettre de perdre intégralement.</div>
+    
+    <h3>Parcours recommandé</h3>
+    <ol>
+      <li><strong>1.</strong> <button onclick="setLearn('actifs')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">Types d'actifs</button> — comprendre dans quoi tu peux investir</li>
+      <li><strong>2.</strong> <button onclick="setLearn('warren')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">Méthode Buffett</button> — repérer les entreprises sous-cotées via leurs documents</li>
+      <li><strong>3.</strong> <button onclick="setLearn('piliers')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">8 Piliers</button> — méthode de trading rigoureuse</li>
+      <li><strong>4.</strong> <button onclick="setLearn('patterns')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">Patterns</button> — figures chartistes à reconnaître</li>
+      <li><strong>5.</strong> <button onclick="setLearn('simulateurs')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">Simulateurs</button> — calculer tes projections</li>
+      <li><strong>6.</strong> <button onclick="setLearn('fiscalite')" style="color:var(--blue);text-decoration:underline;background:none;cursor:pointer">Fiscalité</button> — avant ta déclaration annuelle</li>
+    </ol>
+    `;
+  },
+  
+  // ═══ WARREN BUFFETT — Méthode complète ═══
+  warren: () => `
+    <h2 id="warren">🎩 La méthode Warren Buffett</h2>
+    <p class="page-sub">Analyser les documents d'entreprise pour identifier les sous-cotées de qualité</p>
+    
+    <div class="notice gold">
+      💡 <strong>L'idée centrale.</strong> Warren Buffett achète des <em>entreprises</em>, pas des tickers. Il étudie les états financiers, identifie les entreprises avec un <strong>avantage concurrentiel durable</strong> (moat), et les achète quand le marché les vend en-dessous de leur valeur intrinsèque.
+    </div>
+    
+    <div class="course-toc">
+      <h3 style="margin-top:0">Sommaire</h3>
+      <div class="toc-items">
+        <button class="toc-link" onclick="document.getElementById('w-bilan').scrollIntoView({behavior:'smooth'})">📊 1. Lire un bilan (balance sheet) <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-resultat').scrollIntoView({behavior:'smooth'})">💰 2. Lire un compte de résultat (income statement) <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-cashflow').scrollIntoView({behavior:'smooth'})">💧 3. Lire un cash flow statement <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-ratios').scrollIntoView({behavior:'smooth'})">📐 4. Les 10 ratios clés <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-moat').scrollIntoView({behavior:'smooth'})">🏰 5. Identifier le moat (5 types) <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-valuation').scrollIntoView({behavior:'smooth'})">🎯 6. Estimer la valeur intrinsèque (DCF) <span>→</span></button>
+        <button class="toc-link" onclick="document.getElementById('w-checklist').scrollIntoView({behavior:'smooth'})">✅ 7. La checklist Buffett (10 critères) <span>→</span></button>
+        <button class="toc-link" onclick="setLearn('simulateurs')">🧮 8. Utiliser le simulateur DCF <span>→</span></button>
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-bilan">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 1 · FONDAMENTAL</div>
+          <div class="lesson-title"><span class="level-tag deb">DÉBUTANT</span>📊 Lire un bilan</div>
+        </div>
+        ${readBtn('w-bilan')}
+      </div>
+      
+      <p>Le <strong>bilan</strong> (balance sheet) est une photo de l'entreprise à un instant T. Il dit ce qu'elle <em>possède</em> et ce qu'elle <em>doit</em>.</p>
+      
+      <div class="notice"><strong>Équation fondamentale :</strong><br><code style="font-family:var(--f-mono);background:var(--paper2);padding:4px 8px;border-radius:4px;display:inline-block;margin-top:6px">Actif = Passif + Capitaux propres</code></div>
+      
+      <h4>Actif (ce que l'entreprise possède)</h4>
+      <ul>
+        <li><strong>Actif circulant</strong> — trésorerie, créances clients, stocks. Convertibles en cash &lt; 1 an.</li>
+        <li><strong>Actif immobilisé</strong> — usines, machines, marques, brevets. Long terme.</li>
+        <li><strong>Goodwill</strong> — prime payée lors d'acquisitions (au-dessus de la valeur comptable). Buffett s'en méfie.</li>
+      </ul>
+      
+      <h4>Passif (ce que l'entreprise doit)</h4>
+      <ul>
+        <li><strong>Dettes court terme</strong> — fournisseurs, dettes &lt; 1 an</li>
+        <li><strong>Dettes long terme</strong> — emprunts bancaires, obligations émises</li>
+      </ul>
+      
+      <h4>Capitaux propres</h4>
+      <ul>
+        <li><strong>Capital social</strong> — argent apporté par les actionnaires</li>
+        <li><strong>Réserves / résultats non distribués</strong> — bénéfices accumulés sans avoir été versés en dividendes</li>
+      </ul>
+      
+      <h4>Ce que Buffett regarde en premier sur le bilan</h4>
+      <ol>
+        <li><strong>Trésorerie élevée</strong> — au moins 1× le résultat net annuel</li>
+        <li><strong>Dette long terme &lt; 3 ans de résultats nets</strong> — sinon l'entreprise est fragile</li>
+        <li><strong>Goodwill modéré</strong> — un goodwill énorme = l'entreprise a payé trop cher ses acquisitions</li>
+        <li><strong>Capitaux propres en croissance</strong> — les profits sont réinvestis intelligemment</li>
+        <li><strong>Stocks stables ou en baisse vs les ventes</strong> — sinon problème de demande</li>
+      </ol>
+      
+      <div class="notice green">
+        <strong>Exemple Apple 2023 (simplifié) :</strong> Trésorerie ≈ 162 Md$, dette long terme ≈ 96 Md$, résultat net ≈ 97 Md$. Dette / résultat ≈ 1. Trésorerie &gt; dette. ✅ Bilan solide selon Buffett.
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-resultat">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 2 · FONDAMENTAL</div>
+          <div class="lesson-title"><span class="level-tag deb">DÉBUTANT</span>💰 Le compte de résultat</div>
+        </div>
+        ${readBtn('w-resultat')}
+      </div>
+      
+      <p>Le <strong>compte de résultat</strong> (income statement) montre les revenus et dépenses sur une période (trimestre, année). Il aboutit au <strong>résultat net</strong>.</p>
+      
+      <h4>Cascade typique</h4>
+      <table>
+        <thead><tr><th>Ligne</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Chiffre d'affaires</strong></td><td>Total des ventes (revenu brut)</td></tr>
+          <tr><td>− Coût des biens vendus (COGS)</td><td>Matières premières, fabrication</td></tr>
+          <tr><td><strong>= Marge brute</strong></td><td>Indicateur de pricing power</td></tr>
+          <tr><td>− Charges opérationnelles (SG&A, R&D)</td><td>Salaires, marketing, recherche</td></tr>
+          <tr><td><strong>= Résultat opérationnel (EBIT)</strong></td><td>Bénéfice avant intérêts et impôts</td></tr>
+          <tr><td>− Intérêts financiers</td><td>Coût de la dette</td></tr>
+          <tr><td>− Impôts</td><td>Sur les bénéfices</td></tr>
+          <tr><td><strong>= Résultat net</strong></td><td>Profit final disponible pour les actionnaires</td></tr>
+        </tbody>
+      </table>
+      
+      <h4>Ce que Buffett regarde sur le compte de résultat</h4>
+      <ul>
+        <li><strong>Marge brute &gt; 40%</strong> — signe d'un avantage concurrentiel (Coca, Apple, LVMH)</li>
+        <li><strong>Charges SG&A &lt; 30% de la marge brute</strong> — bonne discipline</li>
+        <li><strong>R&D stable et raisonnable</strong> — pas trop dépendant de l'innovation perpétuelle</li>
+        <li><strong>Intérêts &lt; 15% du résultat opérationnel</strong> — dette maîtrisée</li>
+        <li><strong>Croissance régulière du résultat net</strong> — sur 10 ans, courbe ascendante stable</li>
+      </ul>
+      
+      <div class="notice red">
+        <strong>⚠ Drapeau rouge :</strong> chiffre d'affaires qui croît mais résultat net qui stagne ou baisse = problème de marge (concurrence, perte de pricing power).
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-cashflow">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 3 · IMPORTANT</div>
+          <div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>💧 Le tableau des flux de trésorerie</div>
+        </div>
+        ${readBtn('w-cashflow')}
+      </div>
+      
+      <p>Le <strong>cash flow statement</strong> est le document préféré de Buffett. Il révèle le <em>vrai</em> cash que l'entreprise génère, sans manipulations comptables.</p>
+      
+      <h4>Trois sections</h4>
+      <ol>
+        <li><strong>Cash flow opérationnel (CFO)</strong> — cash généré par l'activité courante. Doit être &gt; 0 et croissant.</li>
+        <li><strong>Cash flow d'investissement (CFI)</strong> — achats d'usines, machines, acquisitions. Souvent négatif (normal).</li>
+        <li><strong>Cash flow de financement (CFF)</strong> — dividendes versés, rachats d'actions, emprunts. Souvent négatif (l'entreprise rend du cash).</li>
+      </ol>
+      
+      <h4>Le calcul magique : Free Cash Flow (FCF)</h4>
+      <div class="notice gold">
+        <code style="font-family:var(--f-mono);background:var(--white);padding:6px 10px;border-radius:4px;display:inline-block">FCF = Cash flow opérationnel − Capex (capital expenditures)</code>
+        <br><br>Le FCF est le cash <em>libre</em> que l'entreprise peut redistribuer aux actionnaires (dividendes, rachats d'actions). C'est ce que Buffett valorise.
+      </div>
+      
+      <h4>Ratios clés tirés du cash flow</h4>
+      <ul>
+        <li><strong>FCF / Résultat net &gt; 1</strong> — l'entreprise génère plus de cash que de bénéfices comptables = qualité</li>
+        <li><strong>FCF yield = FCF / Capitalisation boursière</strong> — &gt; 5% = potentiellement sous-coté</li>
+        <li><strong>FCF en croissance constante sur 10 ans</strong> — signe d'une "compounding machine"</li>
+      </ul>
+      
+      <div class="notice green">
+        <strong>Exemple :</strong> Microsoft génère ~70 Md$ de FCF par an. Avec une capitalisation à 3 000 Md$, le FCF yield est ~2.3%. Pas exceptionnel — Buffett attendrait un meilleur prix.
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-ratios">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 4 · CŒUR DE MÉTHODE</div>
+          <div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>📐 Les 10 ratios clés</div>
+        </div>
+        ${readBtn('w-ratios')}
+      </div>
+      
+      <table>
+        <thead><tr><th>Ratio</th><th>Formule</th><th>Seuil Buffett</th><th>Mesure</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ROE</strong></td><td>Résultat net / Capitaux propres</td><td>&gt; 15%</td><td>Rentabilité des fonds propres</td></tr>
+          <tr><td><strong>ROIC</strong></td><td>NOPAT / Capital investi</td><td>&gt; 12%</td><td>Rentabilité du capital total</td></tr>
+          <tr><td><strong>Marge nette</strong></td><td>Résultat net / CA</td><td>&gt; 10%</td><td>Efficacité opérationnelle</td></tr>
+          <tr><td><strong>Marge brute</strong></td><td>(CA − COGS) / CA</td><td>&gt; 40%</td><td>Pricing power</td></tr>
+          <tr><td><strong>D/E</strong></td><td>Dette / Capitaux propres</td><td>&lt; 0.5</td><td>Levier financier</td></tr>
+          <tr><td><strong>Current ratio</strong></td><td>Actif circulant / Passif court terme</td><td>&gt; 1.5</td><td>Liquidité</td></tr>
+          <tr><td><strong>PER</strong></td><td>Cours / Bénéfice par action</td><td>&lt; 20</td><td>Cherté</td></tr>
+          <tr><td><strong>P/B</strong></td><td>Cours / Valeur comptable par action</td><td>&lt; 3</td><td>Multiple de capitaux propres</td></tr>
+          <tr><td><strong>FCF yield</strong></td><td>FCF / Capitalisation</td><td>&gt; 5%</td><td>Rendement cash réel</td></tr>
+          <tr><td><strong>Payout ratio</strong></td><td>Dividendes / Résultat net</td><td>&lt; 60%</td><td>Soutenabilité des dividendes</td></tr>
+        </tbody>
+      </table>
+      
+      <div class="notice">
+        💡 <strong>Astuce :</strong> tous ces ratios sont disponibles gratuitement sur <strong>Yahoo Finance</strong>, <strong>Boursorama</strong>, ou <strong>simplywall.st</strong>. Pas besoin de Bloomberg.
+      </div>
+      
+      <h4>Comment Buffett combine ces ratios</h4>
+      <ol>
+        <li>D'abord <strong>la qualité</strong> : ROE &gt; 15%, ROIC &gt; 12%, marges fortes pendant 10 ans</li>
+        <li>Ensuite <strong>la solidité</strong> : D/E faible, current ratio &gt; 1.5</li>
+        <li>Enfin <strong>le prix</strong> : PER raisonnable, P/B raisonnable, FCF yield attractif</li>
+      </ol>
+      <p>Buffett dit : "Il vaut mieux acheter une entreprise extraordinaire à un prix correct qu'une entreprise correcte à un prix extraordinaire."</p>
+    </div>
+    
+    <div class="lesson-card" id="w-moat">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 5 · CONCEPT CENTRAL</div>
+          <div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>🏰 Le moat — l'avantage concurrentiel durable</div>
+        </div>
+        ${readBtn('w-moat')}
+      </div>
+      
+      <p>Le <strong>moat</strong> (douve, en anglais) est l'avantage concurrentiel qui protège l'entreprise des concurrents pendant des décennies. C'est <strong>LE</strong> critère Buffett.</p>
+      
+      <h4>Les 5 types de moats</h4>
+      
+      <h4>1. 🏷️ Pouvoir de marque (Brand)</h4>
+      <p>Les clients paient plus cher juste pour le nom. Exemple : Coca-Cola, Hermès, Apple. Un produit générique équivalent ne se vend pas au même prix.</p>
+      <p><em>Test :</em> peux-tu sans difficulté nommer la marque dominante du secteur ?</p>
+      
+      <h4>2. 🔒 Coûts de changement (Switching costs)</h4>
+      <p>Changer de fournisseur coûte cher en temps, argent ou risque. Exemple : Microsoft Office, SAP, banques. Les clients restent par inertie économique.</p>
+      <p><em>Test :</em> combien de temps faudrait-il à un client pour migrer vers un concurrent ?</p>
+      
+      <h4>3. 🌐 Effets de réseau (Network effects)</h4>
+      <p>Plus il y a d'utilisateurs, plus le produit gagne en valeur. Exemple : Visa/Mastercard, Meta, Airbnb. Un nouveau concurrent doit créer le réseau de zéro.</p>
+      <p><em>Test :</em> les nouveaux clients viennent-ils parce que les autres clients sont déjà là ?</p>
+      
+      <h4>4. 💰 Avantage de coût (Cost advantage)</h4>
+      <p>L'entreprise produit moins cher que ses concurrents. Exemple : Walmart, Costco, Ryanair. Économies d'échelle, accès matières premières, géographie.</p>
+      <p><em>Test :</em> est-ce que l'entreprise peut casser les prix sans perdre d'argent ?</p>
+      
+      <h4>5. 📜 Actifs incorporels (Intangible assets)</h4>
+      <p>Brevets, licences, autorisations réglementaires difficiles à obtenir. Exemple : pharmas (Pfizer, Novo Nordisk), Moody's. Barrières légales.</p>
+      <p><em>Test :</em> combien d'années pour qu'un nouveau concurrent obtienne les mêmes droits ?</p>
+      
+      <div class="notice gold">
+        🎯 <strong>Buffett achète uniquement les entreprises avec au moins 1 moat fort.</strong> Sans moat, les marges s'érodent dans le temps face à la concurrence — peu importe les beaux ratios actuels.
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-valuation">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 6 · TECHNIQUE</div>
+          <div class="lesson-title"><span class="level-tag exp">AVANCÉ</span>🎯 Estimer la valeur intrinsèque (DCF)</div>
+        </div>
+        ${readBtn('w-valuation')}
+      </div>
+      
+      <p>La <strong>valeur intrinsèque</strong> est ce que vaut <em>vraiment</em> l'entreprise, indépendamment du prix de marché. Si le prix &lt; valeur intrinsèque + marge de sécurité (typiquement 30%), on achète.</p>
+      
+      <h4>Méthode DCF simplifiée (Discounted Cash Flow)</h4>
+      <ol>
+        <li><strong>Estimer le FCF actuel</strong> (Free Cash Flow de la dernière année)</li>
+        <li><strong>Projeter le FCF sur 10 ans</strong> avec un taux de croissance prudent (typiquement 5-10%)</li>
+        <li><strong>Estimer une valeur terminale</strong> (FCF année 10 × 15, soit P/FCF de 15)</li>
+        <li><strong>Actualiser le tout</strong> à un taux d'escompte (typiquement 9-10%, coût du capital)</li>
+        <li><strong>Diviser par le nombre d'actions</strong> → valeur intrinsèque par action</li>
+        <li><strong>Comparer au cours actuel</strong> — si cours &lt; 70% de la valeur intrinsèque → opportunité</li>
+      </ol>
+      
+      <div class="notice purple">
+        🧮 <strong>Le simulateur DCF est intégré dans HERMES.</strong> <button onclick="setLearn('simulateurs')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Y aller maintenant →</button>
+      </div>
+      
+      <h4>Méthode alternative : multiples comparatifs</h4>
+      <p>Plus rapide : comparer les ratios PER, P/B, EV/EBITDA de l'entreprise avec ceux de ses concurrents et de sa moyenne historique sur 10 ans.</p>
+      <ul>
+        <li>PER actuel &lt; 70% du PER moyen historique → possible sous-cote</li>
+        <li>PER &lt; PER moyen du secteur, à qualité comparable → opportunité</li>
+      </ul>
+      
+      <div class="notice red">
+        <strong>⚠ Piège :</strong> une action peut paraître "pas chère" (PER bas) car le marché anticipe une dégradation. Vérifie toujours qualité (ratios) ET moat avant de conclure à une sous-cote.
+      </div>
+    </div>
+    
+    <div class="lesson-card" id="w-checklist">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div>
+          <div class="lesson-meta">CHAPITRE 7 · SYNTHÈSE</div>
+          <div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>✅ Checklist Buffett (10 critères)</div>
+        </div>
+        ${readBtn('w-checklist')}
+      </div>
+      
+      <p>Avant tout achat d'action individuelle, valide ces 10 points. <strong>9 ou 10 sur 10 = signal d'achat fort.</strong> 7 ou 8 = examiner plus. Moins de 7 = passer.</p>
+      
+      <div class="card" style="background:var(--paper2)">
+        <table>
+          <thead><tr><th>#</th><th>Critère</th><th>Seuil</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td>Je comprends le business model (en 1 phrase claire)</td><td>OUI / NON</td></tr>
+            <tr><td><strong>2</strong></td><td>L'entreprise a un moat identifiable (1 des 5 types)</td><td>OUI / NON</td></tr>
+            <tr><td><strong>3</strong></td><td>ROE &gt; 15% pendant les 10 dernières années</td><td>&gt; 15%</td></tr>
+            <tr><td><strong>4</strong></td><td>Marge nette &gt; 10% stable ou en croissance</td><td>&gt; 10%</td></tr>
+            <tr><td><strong>5</strong></td><td>FCF positif chaque année des 10 dernières années</td><td>10/10</td></tr>
+            <tr><td><strong>6</strong></td><td>Dette long terme &lt; 3 × résultat net</td><td>&lt; 3×</td></tr>
+            <tr><td><strong>7</strong></td><td>Direction compétente et alignée (skin in the game)</td><td>OUI / NON</td></tr>
+            <tr><td><strong>8</strong></td><td>Bénéfices prévisibles sur 10 ans (pas trop cyclique)</td><td>OUI / NON</td></tr>
+            <tr><td><strong>9</strong></td><td>PER &lt; 20 ET PER &lt; 70% du PER moyen historique</td><td>2 conditions</td></tr>
+            <tr><td><strong>10</strong></td><td>Cours &lt; 70% de la valeur intrinsèque (DCF)</td><td>marge sécurité 30%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="notice gold">
+        🎯 <strong>Règle Buffett :</strong> "Be fearful when others are greedy, and greedy when others are fearful." Les meilleures opportunités apparaissent lors des krachs où le marché vend tout indistinctement. Tu peux acheter d'excellentes entreprises à 50% de leur valeur intrinsèque.
+      </div>
+      
+      <h4>Erreurs à éviter</h4>
+      <ul>
+        <li><strong>Acheter parce que "ça baisse, c'est cheap"</strong> — sans vérifier la qualité. Beaucoup d'actions baissent à raison.</li>
+        <li><strong>Acheter ce qu'on ne comprend pas</strong> — biotech, crypto, AI déraisonnable. "Stay within your circle of competence."</li>
+        <li><strong>Sur-diversifier</strong> — Buffett a 70% de Berkshire dans 5 lignes seulement. Trop de positions = ETF déguisé.</li>
+        <li><strong>Vendre trop tôt</strong> — si l'entreprise reste excellente, garde pendant des décennies. L'effet boule de neige opère.</li>
+      </ul>
+    </div>
+    
+    <div class="notice purple" style="margin-top:24px">
+      📐 <strong>Application pratique :</strong> 
+      <button onclick="setLearn('simulateurs')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Utiliser le simulateur DCF pour estimer une valeur intrinsèque →</button>
+    </div>
+  `,
+};
+</script>
+<script>
+// Suite des learnRenderers
+
+learnRenderers.actifs = () => `
+  <h2>💎 Les 9 types d'actifs</h2>
+  <p class="page-sub">Comprendre chaque classe pour mieux choisir</p>
+  
+  <div class="notice gold">💡 Avant de placer 1€, comprends <em>dans quoi</em> tu investis. Chaque type d'actif a sa mécanique, sa fiscalité, ses risques propres.</div>
+  
+  <div class="course-toc">
+    <h3 style="margin-top:0">Sommaire</h3>
+    <div class="toc-items">
+      ${[
+        ['etf', '📈 ETF (fonds indiciels)'],
+        ['actions', '🏢 Actions individuelles'],
+        ['obligations', '📜 Obligations'],
+        ['immo', '🏠 Immobilier'],
+        ['crypto', '₿ Cryptomonnaies'],
+        ['commos', '🪙 Matières premières'],
+        ['forex', '💱 Forex'],
+        ['derives', '⚡ Produits dérivés'],
+        ['cash', '💵 Cash & livrets'],
+      ].map(([id, lbl]) => `<button class="toc-link" onclick="document.getElementById('a-${id}').scrollIntoView({behavior:'smooth'})">${lbl} <span>→</span></button>`).join('')}
+    </div>
+  </div>
+  
+  <div class="lesson-card" id="a-etf">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · DÉBUTANT</div><div class="lesson-title"><span class="level-tag deb">DÉBUTANT</span>📈 ETF</div></div>
+      ${readBtn('a-etf')}
+    </div>
+    <p><strong>Définition.</strong> Panier d'actions/obligations qui réplique un indice. 1 part d'ETF MSCI World = fraction de 1 500+ entreprises mondiales.</p>
+    <h4>UCITS vs US</h4>
+    <table>
+      <thead><tr><th>Critère</th><th>UCITS</th><th>US</th></tr></thead>
+      <tbody>
+        <tr><td>Accessible FR</td><td>✅ Oui</td><td>⚠ Indirect</td></tr>
+        <tr><td>TER</td><td>0.1-0.5%</td><td>0.03-0.2%</td></tr>
+        <tr><td>Choix</td><td>Milliers</td><td>10 000+</td></tr>
+      </tbody>
+    </table>
+    <h4>Distribuant vs Capitalisant</h4>
+    <ul>
+      <li><strong>Distribuant (D)</strong> : dividendes reversés. Utile pour la rente.</li>
+      <li><strong>Capitalisant (C)</strong> : dividendes réinvestis. Idéal phase d'accumulation, fiscalement avantageux.</li>
+    </ul>
+    <div class="notice green"><strong>Exemple :</strong> CW8 (Amundi MSCI World) — UCITS, capitalisant, TER 0.38%, éligible PEA.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-actions">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · INTERMÉDIAIRE</div><div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>🏢 Actions individuelles</div></div>
+      ${readBtn('a-actions')}
+    </div>
+    <p>Part de propriété d'une entreprise cotée. Gains via plus-value et dividendes (2-6%/an typique).</p>
+    <h4>Catégories</h4>
+    <ul>
+      <li><strong>Blue chips</strong> (LVMH, Apple) — stables, dividendes</li>
+      <li><strong>Growth</strong> (Tesla, Nvidia) — croissance forte, volatil</li>
+      <li><strong>Value</strong> — sous-évaluées (terrain Buffett)</li>
+      <li><strong>Small caps</strong> — potentiel/risque élevés</li>
+    </ul>
+    <div class="notice purple">🎩 <button onclick="setLearn('warren')" style="color:var(--purple);font-weight:700;text-decoration:underline;background:none;cursor:pointer">Méthode Buffett</button> pour bien choisir une action.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-obligations">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · DÉBUTANT</div><div class="lesson-title"><span class="level-tag deb">DÉBUTANT</span>📜 Obligations</div></div>
+      ${readBtn('a-obligations')}
+    </div>
+    <p>Prêt à un État ou entreprise. Intérêts (coupons) + remboursement à échéance.</p>
+    <h4>Notations</h4>
+    <p>AAA → D. <strong>IG</strong> = Investment Grade (AAA à BBB). <strong>HY</strong> = High Yield (junk bonds).</p>
+    <table>
+      <thead><tr><th>Type</th><th>Rendement</th><th>Risque</th></tr></thead>
+      <tbody>
+        <tr><td>IG</td><td>3-5%</td><td>Très faible</td></tr>
+        <tr><td>HY</td><td>6-12%</td><td>Significatif</td></tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Plus simple :</strong> ETF obligataire (AGGH). Évite l'achat direct.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-immo">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · INTERMÉDIAIRE</div><div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>🏠 Immobilier</div></div>
+      ${readBtn('a-immo')}
+    </div>
+    <table>
+      <thead><tr><th>Critère</th><th>SCPI</th><th>LMNP</th><th>Loc. nue</th></tr></thead>
+      <tbody>
+        <tr><td>Ticket</td><td>1 000€+</td><td>50k€+</td><td>100k€+</td></tr>
+        <tr><td>Gestion</td><td>Déléguée</td><td>Forte</td><td>Modérée</td></tr>
+        <tr><td>Rendement</td><td>4-5%</td><td>4-7%</td><td>2-4%</td></tr>
+      </tbody>
+    </table>
+    <div class="notice red"><strong>⚠ Levier :</strong> 200k€ avec 20k€ d'apport = levier ×10. Risques : vacance, taux, travaux.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-crypto">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · AVANCÉ</div><div class="lesson-title"><span class="level-tag exp">AVANCÉ</span>₿ Cryptomonnaies</div></div>
+      ${readBtn('a-crypto')}
+    </div>
+    <ul>
+      <li><strong>BTC</strong> — "Or numérique". 21M max. Volatilité ±50%/an.</li>
+      <li><strong>ETH</strong> — Plateforme smart contracts.</li>
+      <li><strong>Stablecoins (USDC)</strong> — Adossés à USD.</li>
+      <li><strong>Alt-coins</strong> — Risque extrême.</li>
+    </ul>
+    <h4>Wallets</h4>
+    <ul>
+      <li><strong>Exchange</strong> — facile, "not your keys, not your coins"</li>
+      <li><strong>Hardware (Ledger, Trezor)</strong> — standard &gt; 1 000€</li>
+    </ul>
+    <div class="notice red"><strong>⚠ Allocation :</strong> 1-5% du patrimoine. 80% BTC/ETH, 20% max alt.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-commos">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · INTERMÉDIAIRE</div><div class="lesson-title"><span class="level-tag int">INTERMÉDIAIRE</span>🪙 Matières premières</div></div>
+      ${readBtn('a-commos')}
+    </div>
+    <p><strong>Or — valeur refuge.</strong> Protection contre l'inflation et les crises. Corrélation négative avec USD (-0.6). Pas de rendement.</p>
+    <div class="notice"><strong>Allocation typique :</strong> 5-10% pour la protection.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-forex">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · AVANCÉ</div><div class="lesson-title"><span class="level-tag exp">AVANCÉ</span>💱 Forex</div></div>
+      ${readBtn('a-forex')}
+    </div>
+    <table>
+      <thead><tr><th>Session</th><th>Heures Paris</th><th>Specs</th></tr></thead>
+      <tbody>
+        <tr><td>Londres</td><td>09h-18h</td><td>Plus liquide</td></tr>
+        <tr><td>New York</td><td>14h30-23h</td><td>USD active, overlap 14h30-17h = pic</td></tr>
+      </tbody>
+    </table>
+    <div class="notice red"><strong>⚠ 75% des particuliers perdent en CFD/forex.</strong> Reste ≤ 1:10.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-derives">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · AVANCÉ</div><div class="lesson-title"><span class="level-tag exp">AVANCÉ</span>⚡ Produits dérivés</div></div>
+      ${readBtn('a-derives')}
+    </div>
+    <ul>
+      <li><strong>Call</strong> : droit d'acheter à un prix. Pari hausse.</li>
+      <li><strong>Put</strong> : droit de vendre. Pari baisse ou hedging.</li>
+      <li><strong>Futures</strong> : engagement ferme. Levier ×10-×20.</li>
+      <li><strong>CFD</strong> : différence de prix. Pas de propriété.</li>
+    </ul>
+    <div class="notice red"><strong>⚠ Levier :</strong> 1:10 + −10% = −100% du capital. Stops obligatoires.</div>
+  </div>
+  
+  <div class="lesson-card" id="a-cash">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">ACTIF · DÉBUTANT</div><div class="lesson-title"><span class="level-tag deb">DÉBUTANT</span>💵 Cash & livrets</div></div>
+      ${readBtn('a-cash')}
+    </div>
+    <table>
+      <thead><tr><th>Livret</th><th>Taux</th><th>Plafond</th></tr></thead>
+      <tbody>
+        <tr><td>Livret A</td><td>~3%</td><td>22 950€</td></tr>
+        <tr><td>LDDS</td><td>~3%</td><td>12 000€</td></tr>
+        <tr><td>LEP</td><td>~5%</td><td>10 000€ (conditions)</td></tr>
+      </tbody>
+    </table>
+    <div class="notice gold"><strong>💡 Règle :</strong> remplis Livret A (22 950€) avant d'investir ailleurs = fonds d'urgence.</div>
+  </div>
+`;
+
+learnRenderers.piliers = () => {
+  const pillars = [
+    [1, 'deb', '🌍 Analyse macro-économique', '<p>Regarder l\'environnement avant le graphique.</p><h4>4 facteurs à surveiller</h4><ul><li><strong>Taux Fed/BCE</strong> — taux haut = marchés sous pression</li><li><strong>Inflation</strong> — &gt; 3-4% = banques centrales agissent</li><li><strong>PIB / PMI</strong> — PMI &gt; 50 = expansion</li><li><strong>Géopolitique</strong> — volatilité</li></ul>'],
+    [2, 'deb', '📊 Lecture multi-timeframe', '<p>Une seule timeframe ne suffit pas.</p><ol><li>Mensuel — mégatendance ?</li><li>Hebdo — où dans la tendance ?</li><li>Daily — higher highs/lows ?</li><li>4H — point d\'entrée précis</li></ol><div class="notice red"><strong>Ne trade jamais contre la tendance Daily.</strong></div>'],
+    [3, 'int', '🎯 Identification de setup', '<p>Setup = addition de confluences. Minimum 3.</p><ul><li>Support/résistance horizontale</li><li>Trendlines</li><li>EMA 20/50/200</li><li>Fibonacci (38.2%, 50%, 61.8%)</li><li>Divergences RSI/MACD</li><li>Patterns chartistes</li><li>Volume</li></ul>'],
+    [4, 'int', '💰 Gestion du risque', '<p><strong>LE</strong> pilier qui sépare le pro de l\'amateur.</p><h4>3 règles intangibles</h4><ol><li>Risque max 1-2% par trade</li><li>R/R minimum 2:1</li><li>Taille = Risque€ / Distance(entrée−stop)</li></ol><table><thead><tr><th>WR</th><th>R/R 2:1</th><th>R/R 3:1</th></tr></thead><tbody><tr><td>40%</td><td style="color:var(--green)">+0.2 R</td><td style="color:var(--green)">+0.6 R</td></tr><tr><td>50%</td><td style="color:var(--green)">+0.5 R</td><td style="color:var(--green)">+1.0 R</td></tr></tbody></table><div class="notice green">✅ HERMES calcule automatiquement dans Trading.</div>'],
+    [5, 'int', '🧠 Psychologie du trader', '<p>90% des traders échouent à cause de la psychologie.</p><h4>5 biais à neutraliser</h4><ul><li><strong>FOMO</strong> — entrer après le gros mouvement</li><li><strong>Revenge trading</strong> — augmenter la taille pour "récupérer"</li><li><strong>Overtrading</strong> — trader sans setup</li><li><strong>Hope trading</strong> — laisser un trade perdant courir</li><li><strong>Surconfiance</strong> — augmenter après gains</li></ul>'],
+    [6, 'int', '📋 Journal & post-trade', '<p>Sans journal, mêmes erreurs répétées.</p><h4>Métriques</h4><ul><li>Win Rate &gt; 40%</li><li>R/R moyen &gt; 2</li><li>Profit Factor &gt; 1.5</li><li>Espérance &gt; 0</li></ul><div class="notice green">✅ HERMES calcule tout ça automatiquement.</div>'],
+    [7, 'exp', '🔀 Allocation & corrélations', '<p>Diversifier vraiment.</p><ul><li>Tech ↔ Crypto = +0.7 (faux diversifier)</li><li>Actions ↔ Obligations longues = −0.3 (vrai)</li><li>Or ↔ USD = −0.6</li></ul>'],
+    [8, 'exp', '📅 Routine quotidienne', '<h4>Matin (15 min)</h4><ul><li>Calendrier économique</li><li>VIX &gt; 30 = prudence</li></ul><h4>Avant trade (5 min)</h4><ul><li>Pré-trade HERMES rempli</li><li>Score ≥ 5/6 sinon stop</li></ul><h4>Soir (10 min)</h4><ul><li>Journal mis à jour</li></ul>'],
+  ];
+  
+  return `
+    <h2 id="piliers">🏛 Les 8 piliers du trading autonome</h2>
+    <p class="page-sub">Cours magistraux · à lire dans l'ordre</p>
+    
+    ${pillars.map(([n, lvl, title, content]) => `
+      <div class="lesson-card" id="p-${n}">
+        <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+          <div>
+            <div class="lesson-meta">PILIER ${n} · ${lvl === 'deb' ? 'DÉBUTANT' : lvl === 'int' ? 'INTERMÉDIAIRE' : 'AVANCÉ'}</div>
+            <div class="lesson-title"><span class="level-tag ${lvl}">${lvl === 'deb' ? 'DÉBUTANT' : lvl === 'int' ? 'INTER.' : 'AVANCÉ'}</span>${title}</div>
+          </div>
+          ${readBtn('p-' + n)}
+        </div>
+        ${content}
+      </div>
+    `).join('')}
+  `;
+};
+
+learnRenderers.patterns = () => {
+  const renderPattern = (n, t, d, e, id) => `<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+      <strong style="font-family:var(--f-serif);font-size:var(--fs-base)">${n}</strong>
+      ${readBtn(id)}
+    </div>
+    <div style="font-family:var(--f-mono);font-size:var(--fs-xs);color:var(--gold);font-weight:700;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">${t}</div>
+    <p style="font-size:var(--fs-sm);margin-bottom:8px">${d}</p>
+    <div style="font-family:var(--f-mono);font-size:var(--fs-xs);color:var(--ink2)">${e}</div>
+  </div>`;
+  
+  return `
+    <h2 id="patterns">📈 Patterns chartistes</h2>
+    <p class="page-sub">12 figures à reconnaître pour identifier des setups</p>
+    
+    <div class="notice">💡 Un pattern n'est pas une garantie, c'est une <em>probabilité</em>. Combine toujours avec d'autres confluences.</div>
+    
+    <h3>🟢 Haussiers</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+      ${renderPattern('📈 Bull Flag', 'CONTINUATION', 'Après hausse forte, consolidation en pente descendante. Cassure haussière = achat.', 'Entrée breakout · Stop sous le bas du drapeau', 'pat-bullflag')}
+      ${renderPattern('📈 Bull Pennant', 'CONTINUATION', 'Comme flag mais triangle symétrique. Volumes en baisse pendant la consolidation.', 'Entrée cassure · Cible taille du mât', 'pat-pennant')}
+      ${renderPattern('📈 Cup & Handle', 'CONTINUATION', 'Tasse (U) suivie d\'une poignée descendante. Très fiable sur actions tech.', 'Entrée cassure lèvre · Cible profondeur tasse', 'pat-cup')}
+      ${renderPattern('📈 Ascending Triangle', 'CONTINUATION', 'Résistance horizontale + support ascendant. Vendeurs s\'épuisent.', 'Entrée breakout · Cible hauteur triangle', 'pat-asctri')}
+    </div>
+    
+    <h3>🔴 Baissiers</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+      ${renderPattern('📉 Head & Shoulders', 'RETOURNEMENT', '3 sommets : épaule G, tête, épaule D. Cassure neckline = vente.', 'Entrée cassure neckline · Cible hauteur tête', 'pat-hs')}
+      ${renderPattern('📉 Double Top', 'RETOURNEMENT', '2 sommets même hauteur séparés par un creux.', 'Entrée cassure creux · Cible hauteur sommet→creux', 'pat-doubletop')}
+      ${renderPattern('📉 Rising Wedge', 'RETOURNEMENT', 'Coin ascendant resserré. Trompeur car semble haussier. Cassure par le bas.', 'Entrée cassure inférieure · Cible base', 'pat-rwedge')}
+      ${renderPattern('📉 Descending Triangle', 'CONTINUATION', 'Support horizontal + résistance descendante. Acheteurs s\'épuisent.', 'Entrée cassure support · Cible hauteur', 'pat-desctri')}
+    </div>
+    
+    <h3>🟡 Neutres / retournements haussiers</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+      ${renderPattern('↔️ Symmetrical Triangle', 'NEUTRE', 'Consolidation symétrique. Cassure peut aller dans les 2 sens.', 'Attends le breakout pour entrer', 'pat-symtri')}
+      ${renderPattern('📦 Rectangle (Range)', 'NEUTRE', 'Support et résistance horizontaux. Range trading ou breakout.', 'Volume = clé pour confirmer breakout', 'pat-rect')}
+      ${renderPattern('🔄 Inverse H&S', 'RETOURNEMENT HAUSSIER', '3 creux dont le milieu plus bas. Cassure neckline = achat.', 'Entrée cassure · Cible profondeur tête', 'pat-invhs')}
+      ${renderPattern('🔄 Double Bottom', 'RETOURNEMENT HAUSSIER', '2 creux même hauteur. Validation à la cassure du sommet intermédiaire.', 'Entrée cassure sommet · Cible profondeur', 'pat-doublebot')}
+    </div>
+    
+    <div class="notice gold" style="margin-top:24px">💡 Dans HERMES Trading, indique le pattern dans le pré-trade. Le journal te dira quels patterns sont tes meilleurs.</div>
+  `;
+};
+</script>
+<script>
+// ═════════════════════════════════════════════════════════
+// SIMULATEURS — État local
+// ═════════════════════════════════════════════════════════
+const simState = {
+  // 1. Intérêts composés
+  compound: { capital: 10000, rate: 5, years: 20 },
+  // 2. DCA
+  dca: { initial: 1000, monthly: 500, rate: 7, years: 20 },
+  // 3. Position sizing
+  posSize: { capital: 10000, riskPct: 1, entry: 100, sl: 95 },
+  // 4. DCF Buffett
+  dcf: { fcf: 5000, growth: 8, terminal: 15, discount: 9, years: 10, shares: 100, currentPrice: 50 },
+  // 5. Rente Trinity
+  rente: { capital: 200000, withdrawalRate: 4 },
+};
+
+function updSim(simKey, field, value) {
+  simState[simKey][field] = parseFloat(value) || 0;
+  const el = document.getElementById('sim-' + simKey);
+  if (el) el.outerHTML = renderSim[simKey]();
+}
+
+const renderSim = {
+  compound: () => {
+    const s = simState.compound;
+    const final = s.capital * Math.pow(1 + s.rate/100, s.years);
+    const gains = final - s.capital;
+    return `<div class="simulator" id="sim-compound">
+      <h4>1️⃣ Intérêts composés</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink3)">Combien rapporte un capital placé pendant N années sans apports.</p>
+      <div class="form-grid">
+        <div><label class="label">Capital initial €</label><input type="number" class="input highlight" value="${s.capital}" oninput="updSim('compound', 'capital', this.value)"></div>
+        <div><label class="label">Taux annuel %</label><input type="number" step="0.1" class="input highlight" value="${s.rate}" oninput="updSim('compound', 'rate', this.value)"></div>
+        <div><label class="label">Durée (années)</label><input type="number" class="input highlight" value="${s.years}" oninput="updSim('compound', 'years', this.value)"></div>
+      </div>
+      <div class="sim-result">
+        <div class="sim-result-value">${fmtE(final)}</div>
+        <div class="sim-result-label">Capital final · gains : ${fmtE(gains)} (${((gains/s.capital)*100).toFixed(0)}%)</div>
+      </div>
+    </div>`;
+  },
+  
+  dca: () => {
+    const s = simState.dca;
+    const rMonth = Math.pow(1 + s.rate/100, 1/12) - 1;
+    const n = s.years * 12;
+    const final = s.initial * Math.pow(1 + rMonth, n) + s.monthly * ((Math.pow(1 + rMonth, n) - 1) / rMonth);
+    const totalInvested = s.initial + s.monthly * n;
+    const gains = final - totalInvested;
+    return `<div class="simulator" id="sim-dca">
+      <h4>2️⃣ DCA (apports mensuels)</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink3)">Capital initial + apport mensuel régulier, composé sur N années.</p>
+      <div class="form-grid">
+        <div><label class="label">Capital initial €</label><input type="number" class="input highlight" value="${s.initial}" oninput="updSim('dca', 'initial', this.value)"></div>
+        <div><label class="label">Apport mensuel €</label><input type="number" class="input highlight" value="${s.monthly}" oninput="updSim('dca', 'monthly', this.value)"></div>
+        <div><label class="label">Taux annuel %</label><input type="number" step="0.1" class="input highlight" value="${s.rate}" oninput="updSim('dca', 'rate', this.value)"></div>
+        <div><label class="label">Durée (années)</label><input type="number" class="input highlight" value="${s.years}" oninput="updSim('dca', 'years', this.value)"></div>
+      </div>
+      <div class="sim-result">
+        <div class="sim-result-value">${fmtE(final)}</div>
+        <div class="sim-result-label">Investi : ${fmtE(totalInvested)} · Gains : ${fmtE(gains)}</div>
+      </div>
+    </div>`;
+  },
+  
+  posSize: () => {
+    const s = simState.posSize;
+    const riskEur = s.capital * s.riskPct / 100;
+    const dist = Math.abs(s.entry - s.sl);
+    const size = dist > 0 ? riskEur / dist : 0;
+    const posValue = size * s.entry;
+    return `<div class="simulator" id="sim-posSize">
+      <h4>3️⃣ Position sizing & R/R</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink3)">Combien d'unités acheter pour respecter un risque max.</p>
+      <div class="form-grid">
+        <div><label class="label">Capital total €</label><input type="number" class="input highlight" value="${s.capital}" oninput="updSim('posSize', 'capital', this.value)"></div>
+        <div><label class="label">Risque %</label><input type="number" step="0.1" class="input highlight" value="${s.riskPct}" oninput="updSim('posSize', 'riskPct', this.value)"></div>
+        <div><label class="label">Prix d'entrée</label><input type="number" step="0.01" class="input highlight" value="${s.entry}" oninput="updSim('posSize', 'entry', this.value)"></div>
+        <div><label class="label">Stop loss</label><input type="number" step="0.01" class="input highlight" value="${s.sl}" oninput="updSim('posSize', 'sl', this.value)"></div>
+      </div>
+      <div class="sim-result">
+        <div class="sim-result-value">${fmt(size)} unités</div>
+        <div class="sim-result-label">Risque max : ${fmtE(riskEur)} · Valeur position : ${fmtE(posValue)}</div>
+      </div>
+    </div>`;
+  },
+  
+  dcf: () => {
+    const s = simState.dcf;
+    // DCF simplifié
+    let intrinsicValue = 0;
+    const discountFactor = 1 + s.discount/100;
+    for (let y = 1; y <= s.years; y++) {
+      const projectedFCF = s.fcf * Math.pow(1 + s.growth/100, y);
+      intrinsicValue += projectedFCF / Math.pow(discountFactor, y);
+    }
+    // Valeur terminale
+    const terminalFCF = s.fcf * Math.pow(1 + s.growth/100, s.years);
+    const terminalValue = terminalFCF * s.terminal;
+    intrinsicValue += terminalValue / Math.pow(discountFactor, s.years);
+    
+    const perShare = s.shares > 0 ? intrinsicValue / s.shares : 0;
+    const marginSafety = s.currentPrice > 0 ? ((perShare - s.currentPrice) / perShare * 100) : 0;
+    const verdict = marginSafety > 30 ? 'OPPORTUNITÉ' : marginSafety > 0 ? 'JUSTE PRIX' : 'TROP CHER';
+    const verdictColor = marginSafety > 30 ? 'var(--green)' : marginSafety > 0 ? 'var(--gold)' : 'var(--red)';
+    
+    return `<div class="simulator" id="sim-dcf">
+      <h4>4️⃣ DCF Buffett — valeur intrinsèque</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink3)">Calcule la valeur d'une entreprise à partir de ses flux de trésorerie projetés.</p>
+      <div class="form-grid">
+        <div><label class="label">FCF actuel (M€)</label><input type="number" class="input highlight" value="${s.fcf}" oninput="updSim('dcf', 'fcf', this.value)"></div>
+        <div><label class="label">Croissance %/an</label><input type="number" step="0.1" class="input highlight" value="${s.growth}" oninput="updSim('dcf', 'growth', this.value)"></div>
+        <div><label class="label">Multiple terminal</label><input type="number" class="input highlight" value="${s.terminal}" oninput="updSim('dcf', 'terminal', this.value)"></div>
+        <div><label class="label">Taux escompte %</label><input type="number" step="0.1" class="input highlight" value="${s.discount}" oninput="updSim('dcf', 'discount', this.value)"></div>
+        <div><label class="label">Durée (années)</label><input type="number" class="input highlight" value="${s.years}" oninput="updSim('dcf', 'years', this.value)"></div>
+        <div><label class="label">Nb actions (M)</label><input type="number" class="input highlight" value="${s.shares}" oninput="updSim('dcf', 'shares', this.value)"></div>
+        <div><label class="label">Cours actuel €</label><input type="number" step="0.01" class="input highlight" value="${s.currentPrice}" oninput="updSim('dcf', 'currentPrice', this.value)"></div>
+      </div>
+      <div class="sim-result">
+        <div class="sim-result-value">${fmt(perShare)} €</div>
+        <div class="sim-result-label">Valeur intrinsèque par action</div>
+        <div style="margin-top:12px;padding:12px;background:var(--white);border-radius:var(--r-md);border:2px solid ${verdictColor}">
+          <div style="font-family:var(--f-mono);font-size:var(--fs-sm);color:${verdictColor};font-weight:700;letter-spacing:1px">${verdict}</div>
+          <div style="font-size:var(--fs-sm);color:var(--ink2);margin-top:4px">Marge de sécurité : <strong>${marginSafety.toFixed(0)}%</strong></div>
+          <div style="font-size:var(--fs-xs);color:var(--ink3);margin-top:4px">Buffett achète si marge de sécurité &gt; 30%</div>
+        </div>
+      </div>
+    </div>`;
+  },
+  
+  rente: () => {
+    const s = simState.rente;
+    const annual = s.capital * s.withdrawalRate / 100;
+    const monthly = annual / 12;
+    return `<div class="simulator" id="sim-rente">
+      <h4>5️⃣ Rente Trinity (règle des 4%)</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink3)">Combien tu peux retirer chaque année à vie depuis un capital.</p>
+      <div class="form-grid">
+        <div><label class="label">Capital final €</label><input type="number" class="input highlight" value="${s.capital}" oninput="updSim('rente', 'capital', this.value)"></div>
+        <div><label class="label">Taux retrait %/an</label><input type="number" step="0.1" class="input highlight" value="${s.withdrawalRate}" oninput="updSim('rente', 'withdrawalRate', this.value)"></div>
+      </div>
+      <div class="sim-result">
+        <div class="sim-result-value">${fmtE(monthly)} / mois</div>
+        <div class="sim-result-label">Rente mensuelle · ${fmtE(annual)}/an</div>
+      </div>
+    </div>`;
+  },
+};
+
+learnRenderers.simulateurs = () => `
+  <h2 id="simulateurs">🧮 Simulateurs</h2>
+  <p class="page-sub">Calculs interactifs · modifie les valeurs, les résultats se mettent à jour</p>
+  
+  <div class="notice purple">💡 Tous les calculs sont locaux, instantanés, sans envoi sur internet. Joue avec les paramètres pour comprendre les effets.</div>
+  
+  ${renderSim.compound()}
+  ${renderSim.dca()}
+  ${renderSim.posSize()}
+  ${renderSim.dcf()}
+  ${renderSim.rente()}
+  
+  <div class="notice gold" style="margin-top:24px">
+    🎩 Le simulateur DCF complète <button onclick="setLearn('warren')" style="color:var(--gold);font-weight:700;text-decoration:underline;background:none;cursor:pointer">la méthode Warren Buffett</button>.
+  </div>
+`;
+
+learnRenderers.glossaire = () => {
+  const term = (t, d) => `<div style="background:var(--paper2);border-left:3px solid var(--blue);border-radius:0 var(--r-md) var(--r-md) 0;padding:var(--sp-3) var(--sp-4);margin-bottom:8px"><div style="font-family:var(--f-mono);font-weight:700;font-size:var(--fs-sm);color:var(--blue);margin-bottom:4px;letter-spacing:0.5px">${esc(t)}</div><div style="font-size:var(--fs-sm);color:var(--ink2)">${esc(d)}</div></div>`;
+  
+  return `
+    <h2 id="glossaire">📖 Glossaire</h2>
+    <p class="page-sub">Tous les termes essentiels · 3 niveaux</p>
+    
+    <h3><span class="level-tag deb">DÉBUTANT</span> Vocabulaire de base</h3>
+    ${[
+      ['ETF', 'Exchange Traded Fund. Panier d\'actions/obligations négociable comme une action.'],
+      ['DCA', 'Dollar Cost Averaging. Investir un montant fixe à intervalle régulier.'],
+      ['PA / PV', 'Prix d\'achat / Plus-value (Prix vente − PA − frais).'],
+      ['Action', 'Part d\'entreprise. Dividendes possibles, valeur fluctuante.'],
+      ['Obligation', 'Prêt à un État ou entreprise contre intérêts.'],
+      ['Liquidité', 'Facilité à convertir un actif en cash.'],
+      ['Volatilité', 'Amplitude des variations de prix.'],
+      ['Diversification', 'Répartir entre plusieurs actifs pour réduire le risque global.'],
+    ].map(([t, d]) => term(t, d)).join('')}
+    
+    <h3><span class="level-tag int">INTERMÉDIAIRE</span> Trading actif</h3>
+    ${[
+      ['LONG / SHORT', 'LONG = pari hausse. SHORT = pari baisse (vente à découvert).'],
+      ['SL / TP', 'Stop Loss = sortie auto si perte. Take Profit = sortie auto si gain.'],
+      ['R/R', 'Risk/Reward. Ratio gain potentiel / perte potentielle. Min 2:1.'],
+      ['Position sizing', 'Taille = Risque€ / Distance(entrée−SL).'],
+      ['Win Rate', '% trades gagnants. Pas le KPI principal — R/R compte plus.'],
+      ['Profit Factor', 'Σ Gains / |Σ Pertes|. > 1.5 = bon.'],
+      ['Espérance', '(WR × Gain moyen) − ((1-WR) × Perte moyenne). Doit être > 0.'],
+      ['Confluence', 'Plusieurs signaux techniques alignés au même niveau. Min 3.'],
+      ['Breakout', 'Cassure d\'un niveau. Confirmation par volume.'],
+      ['VIX', 'Indice volatilité S&P 500. > 30 = stress.'],
+    ].map(([t, d]) => term(t, d)).join('')}
+    
+    <h3><span class="level-tag exp">AVANCÉ</span> Stratégies & marchés</h3>
+    ${[
+      ['Fed / FOMC', 'Banque centrale US. Décide taux toutes les 6 semaines.'],
+      ['BCE', 'Banque Centrale Européenne. Équivalent Fed pour EUR.'],
+      ['CPI', 'Consumer Price Index. Mesure inflation. Publication mensuelle.'],
+      ['NFP', 'Non-Farm Payrolls. Emploi US, 1er vendredi du mois. Volatilité +++.'],
+      ['PMI', 'Purchasing Managers Index. > 50 = expansion.'],
+      ['Yield curve', 'Courbe des taux. Inversée = signal de récession dans 12-18 mois.'],
+      ['Levier', 'Multiplicateur d\'exposition. Levier 10× = 10× gains ET pertes.'],
+      ['Hedging', 'Couverture. Position inverse pour neutraliser un risque.'],
+      ['Stablecoin', 'Crypto adossée à fiat (USDC = 1 USD).'],
+      ['Slippage', 'Différence prix attendu / exécuté.'],
+      ['Spread', 'Différence ask − bid. Coût implicite.'],
+      ['ROE / ROIC', 'Rentabilité fonds propres / capital investi. Ratios Buffett.'],
+      ['Moat', 'Avantage concurrentiel durable d\'une entreprise (concept Buffett).'],
+      ['FCF', 'Free Cash Flow = cash opérationnel − capex. Préféré de Buffett.'],
+      ['DCF', 'Discounted Cash Flow. Méthode de valuation par flux actualisés.'],
+    ].map(([t, d]) => term(t, d)).join('')}
+  `;
+};
+
+learnRenderers.fiscalite = () => `
+  <h2 id="fiscalite">📑 Fiscalité française</h2>
+  <p class="page-sub">Synthèse des régimes · à confirmer avec un fiscaliste pour ta situation</p>
+  
+  <div class="notice red">⚠ Informations indicatives. La fiscalité évolue. Consulte service-public.fr et/ou un conseiller fiscal.</div>
+  
+  <div class="lesson-card" id="f-cto">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">FISCALITÉ</div><div class="lesson-title">💼 Compte-titres ordinaire (CTO)</div></div>
+      ${readBtn('f-cto')}
+    </div>
+    <p>Le plus flexible : tous produits (actions, ETF, obligations, dérivés). Aucun plafond.</p>
+    <table>
+      <thead><tr><th>Type</th><th>Imposition</th><th>Option</th></tr></thead>
+      <tbody>
+        <tr><td>Plus-values</td><td>PFU 30% (12.8% IR + 17.2% PS)</td><td>Barème progressif</td></tr>
+        <tr><td>Dividendes</td><td>PFU 30%</td><td>Barème + abattement 40%</td></tr>
+        <tr><td>Intérêts</td><td>PFU 30%</td><td>Barème progressif</td></tr>
+      </tbody>
+    </table>
+    <div class="notice">💡 Case 2OP active l'option barème. Pertinent si TMI &lt; 30%.</div>
+  </div>
+  
+  <div class="lesson-card" id="f-pea">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">FISCALITÉ</div><div class="lesson-title">📊 PEA (Plan d'Épargne en Actions)</div></div>
+      ${readBtn('f-pea')}
+    </div>
+    <p>Enveloppe pour actions/ETF européens. Plafond 150 000€.</p>
+    <table>
+      <thead><tr><th>Durée</th><th>Plus-values</th><th>PS</th></tr></thead>
+      <tbody>
+        <tr><td>&lt; 5 ans</td><td>Imposables</td><td>17.2%</td></tr>
+        <tr><td>&gt; 5 ans</td><td><strong style="color:var(--green)">Exonérées</strong></td><td>17.2%</td></tr>
+      </tbody>
+    </table>
+    <div class="notice green">✅ Excellente enveloppe pour ETF World éligibles PEA (CW8, EWLD).</div>
+  </div>
+  
+  <div class="lesson-card" id="f-immo">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">FISCALITÉ</div><div class="lesson-title">🏠 Immobilier locatif</div></div>
+      ${readBtn('f-immo')}
+    </div>
+    <h4>Location nue</h4>
+    <ul>
+      <li><strong>Micro-foncier</strong> : revenus &lt; 15 000€/an, abattement 30%</li>
+      <li><strong>Réel</strong> : déductions des charges (intérêts, travaux, taxe foncière)</li>
+    </ul>
+    <h4>LMNP</h4>
+    <ul>
+      <li><strong>Micro-BIC</strong> : revenus &lt; 77 700€/an, abattement 50%</li>
+      <li><strong>Réel</strong> : amortissement bien (40 ans). Souvent fiscalement neutre.</li>
+    </ul>
+  </div>
+  
+  <div class="lesson-card" id="f-crypto">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div class="lesson-meta">FISCALITÉ</div><div class="lesson-title">₿ Cryptomonnaies</div></div>
+      ${readBtn('f-crypto')}
+    </div>
+    <table>
+      <thead><tr><th>Situation</th><th>Imposition</th></tr></thead>
+      <tbody>
+        <tr><td>Échange crypto ↔ crypto</td><td><strong style="color:var(--green)">Non imposable</strong></td></tr>
+        <tr><td>Cession crypto → €</td><td>PFU 30% sur PV</td></tr>
+        <tr><td>Mining / staking pro</td><td>BNC ou BIC</td></tr>
+        <tr><td>Cessions annuelles &lt; 305€</td><td>Exonération totale</td></tr>
+      </tbody>
+    </table>
+    <div class="notice red"><strong>⚠ Comptes crypto étrangers</strong> à déclarer (formulaire 3916-bis). Amende 750€/compte sinon.</div>
+  </div>
+  
+  <h2>📅 Calendrier déclaratif annuel</h2>
+  <ul>
+    <li><strong>Avril-Mai</strong> : déclaration revenus N-1 (impots.gouv.fr)</li>
+    <li><strong>Mai-Juin</strong> : déclaration 2042-C (revenus mobiliers) et 3916 (comptes étrangers)</li>
+    <li><strong>Août-Sept</strong> : avis d'imposition</li>
+  </ul>
+  
+  <h2>📝 Documents à conserver</h2>
+  <ul>
+    <li>Avis d'opéré de chaque transaction</li>
+    <li>IFU (Imprimé Fiscal Unique) du courtier</li>
+    <li>Relevés bancaires mensuels</li>
+    <li>Pour crypto : exports CSV (10 ans)</li>
+  </ul>
+  
+  <div class="notice gold">💡 HERMES exporte ton journal de trades en CSV depuis l'onglet Trading.</div>
+`;
+</script>
+<script>
+// ═════════════════════════════════════════════════════════
+// RESSOURCES (liens cloud configurables)
+// ═════════════════════════════════════════════════════════
+
+function updResource(idx, field, value) {
+  state.resources[idx][field] = value;
+  save('resources', state.resources);
+  rerender();
+}
+function delResource(idx) {
+  if (!confirm('Supprimer ce lien ?')) return;
+  state.resources.splice(idx, 1);
+  save('resources', state.resources);
+  rerender();
+}
+function addResource() {
+  state.resources.push({ name: 'Nouveau lien', url: '', category: 'Autre' });
+  save('resources', state.resources);
+  rerender();
+}
+function openResource(url) {
+  if (!url || !url.startsWith('http')) {
+    alert('Lien invalide. Configure d\'abord l\'URL dans Réglages → Ressources.');
+    return;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+// ═════════════════════════════════════════════════════════
+// BACKUP / RESTORE
+// ═════════════════════════════════════════════════════════
+
+function exportJSON() {
+  const all = {
+    v: 7, at: new Date().toISOString(),
+    apports: state.apports, benefs: state.benefs, produits: state.produits,
+    achats: state.achats, trades: state.trades, profil: state.profil,
+    monthly: state.monthly, resources: state.resources,
+    courseProgress: state.courseProgress,
+  };
+  const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `HERMES_backup_${new Date().toISOString().split('T')[0]}.json`;
+  a.click(); URL.revokeObjectURL(url);
+}
+function importJSON(e) {
+  const f = e.target.files[0]; if (!f) return;
+  if (!confirm('Restaurer ? Cela remplacera tes données actuelles.')) return;
+  const r = new FileReader();
+  r.onload = (ev) => {
+    try {
+      const d = JSON.parse(ev.target.result);
+      ['apports','benefs','produits','achats','trades','profil','resources','courseProgress'].forEach(k => {
+        if (Array.isArray(d[k])) { state[k] = d[k]; save(k, d[k]); }
+      });
+      if (typeof d.monthly === 'number') { state.monthly = d.monthly; save('monthly', d.monthly); }
+      alert('✓ Données restaurées'); render();
+    } catch (e) { alert('⚠ Fichier invalide : ' + e.message); }
+  };
+  r.readAsText(f);
+}
+function resetAll() {
+  if (!confirm('⚠ ATTENTION : cela va effacer TOUTES tes données. As-tu fait une sauvegarde ?')) return;
+  if (!confirm('Es-tu VRAIMENT sûr ? IRRÉVERSIBLE.')) return;
+  Object.keys(STORAGE_KEYS).forEach(k => { try { localStorage.removeItem(STORAGE_KEYS[k]); } catch(e) {} });
+  location.reload();
+}
+
+// ═════════════════════════════════════════════════════════
+// RÉGLAGES
+// ═════════════════════════════════════════════════════════
+
+function renderReglages() {
+  const cats = ['Cours', 'Annexes', 'Simulateurs', 'Brokers', 'Documents', 'Fiscalité', 'Autre'];
+  
+  return `
+    <h1 class="page-title">⚙️ Réglages</h1>
+    <p class="page-sub">Niveau · Accessibilité · Ressources · Backup · PWA</p>
+    
+    <h2 id="accessibilite">♿ Accessibilité</h2>
+    <div class="card">
+      <div class="card-title">Taille de texte</div>
+      <p style="font-size:var(--fs-sm);color:var(--ink3);margin-bottom:var(--sp-3)">Ajuste la taille de tous les textes (utile pour la lecture).</p>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn ghost" onclick="setTextScale(0.85)" ${state.textScale === 0.85 ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>A petit (85%)</button>
+        <button class="btn ghost" onclick="setTextScale(1)" ${state.textScale === 1 ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>A normal (100%)</button>
+        <button class="btn ghost" onclick="setTextScale(1.15)" ${state.textScale === 1.15 ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>A grand (115%)</button>
+        <button class="btn ghost" onclick="setTextScale(1.3)" ${state.textScale === 1.3 ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>A très grand (130%)</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">Contraste</div>
+      <p style="font-size:var(--fs-sm);color:var(--ink3);margin-bottom:var(--sp-3)">Renforce les contrastes pour une meilleure lisibilité (malvoyants).</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="setContrast('normal')" ${state.contrast === 'normal' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>Normal</button>
+        <button class="btn ghost" onclick="setContrast('high')" ${state.contrast === 'high' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>Contraste élevé</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">Thème</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="setTheme('light')" ${state.theme === 'light' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>☀️ Clair</button>
+        <button class="btn ghost" onclick="setTheme('dark')" ${state.theme === 'dark' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>🌙 Sombre</button>
+      </div>
+    </div>
+    
+    <h2 id="niveau">🎓 Niveau d'expertise</h2>
+    <div class="card">
+      <p style="font-size:var(--fs-sm);color:var(--ink3);margin-bottom:var(--sp-3)">Adapte le contenu et les explications affichées dans l'app.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="setLevel('debutant')" ${state.level === 'debutant' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>📘 Débutant — explications détaillées</button>
+        <button class="btn ghost" onclick="setLevel('intermediaire')" ${state.level === 'intermediaire' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>📗 Intermédiaire</button>
+        <button class="btn ghost" onclick="setLevel('expert')" ${state.level === 'expert' ? 'style="border-color:var(--gold);color:var(--gold);font-weight:700"' : ''}>📕 Expert — compact</button>
+      </div>
+    </div>
+    
+    <h2 id="ressources">🔗 Mes ressources</h2>
+    <div class="notice gold">💡 Stocke ici tous tes liens cloud (Drive, brokers, simulateurs externes, annexes, fiscalité...). Modifiable à tout moment, sauvegardé avec ton backup JSON.</div>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Nom</th><th>Catégorie</th><th>URL</th><th>Ouvrir</th><th></th></tr></thead>
+        <tbody>
+          ${state.resources.map((r, i) => `<tr>
+            <td data-label="Nom"><input type="text" class="input" value="${escAttr(r.name)}" onchange="updResource(${i}, 'name', this.value)" aria-label="Nom ressource"></td>
+            <td data-label="Catégorie"><select class="select" onchange="updResource(${i}, 'category', this.value)" aria-label="Catégorie">${cats.map(c => `<option value="${c}" ${r.category === c ? 'selected' : ''}>${c}</option>`).join('')}</select></td>
+            <td data-label="URL"><input type="url" class="input" value="${escAttr(r.url)}" onchange="updResource(${i}, 'url', this.value)" placeholder="https://..." style="min-width:200px" aria-label="URL"></td>
+            <td data-label="Ouvrir"><button class="btn sm" onclick="openResource('${escAttr(r.url)}')" ${!r.url || !r.url.startsWith('http') ? 'disabled' : ''}>🔗 Ouvrir</button></td>
+            <td><button class="btn ghost sm" onclick="delResource(${i})" aria-label="Supprimer">✕</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div style="margin-top:12px">
+        <button class="btn ghost sm" onclick="addResource()">+ Ajouter un lien</button>
+      </div>
+    </div>
+    
+    <h2>📱 Installer comme une app</h2>
+    <div class="card">
+      <p style="font-size:var(--fs-sm);color:var(--ink3);margin-bottom:var(--sp-3)">HERMES fonctionne comme une application installable sur ton téléphone ou ordinateur. Installe-la pour un accès rapide depuis ton écran d'accueil et un usage hors-ligne.</p>
+      <button class="btn blue" onclick="installPWA()">📱 Installer HERMES</button>
+      <div class="notice" style="margin-top:14px">
+        <strong>iPhone/iPad :</strong> Safari → bouton Partager → "Sur l'écran d'accueil"<br>
+        <strong>Android :</strong> Chrome → menu ⋮ → "Installer l'application"<br>
+        <strong>Ordinateur :</strong> icône ⊕ dans la barre d'adresse
+      </div>
+    </div>
+    
+    <h2>📥 Sauvegarde & restauration</h2>
+    <div class="card">
+      <p style="font-size:var(--fs-sm);color:var(--ink3);margin-bottom:var(--sp-3)">Tes données sont stockées localement. Pour migrer entre appareils ou sauvegarder, exporte en JSON.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn green" onclick="exportJSON()">📥 Télécharger sauvegarde JSON</button>
+        <label class="btn ghost" style="cursor:pointer">
+          📤 Restaurer depuis JSON
+          <input type="file" accept=".json" onchange="importJSON(event)" style="display:none">
+        </label>
+        <button class="btn ghost" style="color:var(--red);border-color:var(--red)" onclick="resetAll()">⚠ Réinitialiser tout</button>
+      </div>
+    </div>
+    
+    <h2>📊 Statistiques de données</h2>
+    <div class="card">
+      <table class="table responsive">
+        <thead><tr><th>Section</th><th>Nombre</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Section">Apports</td><td data-label="Nombre"><strong>${state.apports.length}</strong></td></tr>
+          <tr><td data-label="Section">Bénéficiaires</td><td data-label="Nombre"><strong>${state.benefs.length}</strong></td></tr>
+          <tr><td data-label="Section">Produits</td><td data-label="Nombre"><strong>${state.produits.length}</strong></td></tr>
+          <tr><td data-label="Section">Achats</td><td data-label="Nombre"><strong>${state.achats.length}</strong></td></tr>
+          <tr><td data-label="Section">Trades</td><td data-label="Nombre"><strong>${state.trades.length}</strong></td></tr>
+          <tr><td data-label="Section">Ressources</td><td data-label="Nombre"><strong>${state.resources.length}</strong></td></tr>
+          <tr><td data-label="Section">Cours lus</td><td data-label="Nombre"><strong>${state.courseProgress.length}</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ═════════════════════════════════════════════════════════
+// MAIN RENDER
+// ═════════════════════════════════════════════════════════
+
+const renderers = {
+  accueil: renderAccueil,
+  portefeuille: renderPortefeuille,
+  trading: renderTrading,
+  apprendre: renderApprendre,
+  reglages: renderReglages,
+};
+
+function rerender() {
+  renderNavTabs();
+  const main = document.getElementById('main');
+  const fn = renderers[state.currentTab];
+  if (fn) main.innerHTML = fn();
+  else main.innerHTML = '<p>Section introuvable</p>';
+}
+
+function render() {
+  rerender();
+}
+
+// Init au chargement
+function init() {
+  // Appliquer préférences sauvegardées
+  document.documentElement.setAttribute('data-level', state.level);
+  document.documentElement.setAttribute('data-contrast', state.contrast);
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.documentElement.style.setProperty('--text-scale', state.textScale);
+  
+  // Mettre à jour pill de niveau
+  setLevel(state.level);
+  
+  render();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+if (document.readyState !== 'loading') init();
+</script>
+
+</body>
+</html>
